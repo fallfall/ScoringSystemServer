@@ -233,7 +233,7 @@ path: /proxy/addComment
 
 {
   code: 1013,
-  message: '店主id不存在', // 传递的参数中店主id不存在
+  message: '店主id不存在', // 传递的参数中店主(即发表评论的用户)id不存在
 }
 
 {
