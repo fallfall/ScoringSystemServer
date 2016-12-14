@@ -1,3 +1,4 @@
+/* eslint-disable */
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -6,13 +7,13 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mysql = require('mysql'); // node-mysql module
 var myConnection = require('express-myconnection'); // express-myconnection module
-var config = require('./../config');
+var config = require('./config/config');
 var dbOptions = {
-  host: config.host,
-  user: config.user,
-  password: config.password,
-  port: config.port,
-  database: config.database
+  host: config.db.host,
+  user: config.db.user,
+  password: config.db.password,
+  port: config.db.port,
+  database: config.db.database
 };
 
 var routes = require('./routes/index');
@@ -34,7 +35,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 // mysql
-app.use(myConnection(mysql, dbOptions, 'single');
+app.use(myConnection(mysql, dbOptions, 'single'));
 
 app.use('/', routes);
 app.use('/users', users);
