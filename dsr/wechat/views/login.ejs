@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/weui/weui.min.css"/>
+    <link rel="stylesheet" href="/jquery-weui/css/jquery-weui.min.css" />
+    <link rel="stylesheet" href="/jquery-weui/lib/weui.min.css" />
+    <link rel="stylesheet" href="/css/index.css"/></head>
+<body>
+<div class="page">
+    <div class="page__hd">
+        <h1 class="page__title">登录</h1>
+    </div>
+    <div class="page__bd">
+        <div class="login_container">
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">手机号</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="number" id="phone" placeholder="请输入手机号"/>
+                    </div>
+                </div>
+                <div class="weui-cell weui-cell_vcode">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">验证码</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="tel" id="code" placeholder="请输入验证码">
+                    </div>
+                    <div class="weui-cell__ft">
+                        <button class="weui-vcode-btn" id="btnSendCode">获取验证码</button>
+                    </div>
+                </div>
+            </div>
+            <div class="login_button">
+                <div class="weui-btn-area">
+                    <a class="weui-btn weui-btn_primary" href="javascript:;" id="btnLogin">登录</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="text" class="hide" id="openid" value="<%= openid %>" />
+<script src="/jquery-weui/lib/jquery.min.js"></script>
+<script src="/jquery-weui/js/jquery-weui.min.js"></script>
+<script src="/js/store.min.js"></script>
+<script type="text/javascript" src="/js/login.js"></script>
+</body>
+</html>

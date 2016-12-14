@@ -1,0 +1,119 @@
+.page, body {
+    background-color: #f8f8f8;
+    margin: auto auto 50px auto;
+}
+
+body {
+    font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
+}
+body, html {
+    height: 100%;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.page__hd {
+    padding: 40px;
+    text-align: center;
+}
+.page__desc {
+    margin-top: 5px;
+    color: #888;
+    font-size: 14px;
+}
+
+.login_container {
+    margin-top: 20%;
+}
+.login_button {
+    margin-top: 50px;
+}
+
+
+/**
+ * 评论页面
+ */
+.hide {
+  display: none;
+}
+.title {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 50px;
+}
+.box {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  /*border-top: 1px solid #000;
+  border-bottom: 1px solid #000;*/
+  margin: 30px 15px;
+}
+.box_avatar {
+  flex: 1;
+  height: 50px;
+}
+.box_comment {
+  flex: 5;
+}
+.box_score {
+  flex: 2;
+}
+.box_avatar_img {
+  height: 100%;
+  width: auto;
+}
+.info {
+  margin: 20px auto;
+}
+
+.content {
+  margin: 50px;
+}
+.content_score {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px auto;
+}
+.content_title {
+  flex: 1;
+}
+.content_star {
+  display: flex;
+  flex: 2;
+  justify-content: space-around;
+}
+.icon {
+  font-size: 1.5em;
+  flex: 1;
+}
+
+.content_checkbox {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 20px auto;
+}
+.content_checkbox_column {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 20px auto;
+}
+.content_checkbox_label {
+  flex: 1;
+}
+
+
+.weui_dialog {
+  left: 7.5%;
+}

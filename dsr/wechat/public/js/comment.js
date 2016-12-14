@@ -1,0 +1,250 @@
+$(document).ready(function() {
+
+  function initStorage() {
+    if (!store.enabled) {
+      alert('Local storage is not supported by your browser. Please disable "Private Mode", or upgrade to a modern browser.')
+      return false;
+    }
+  }
+
+  /**
+   * 页面初始化
+   *    初始化店主信息
+   */
+  function initUser() {
+    var id = store.get('id');
+    if (!id) {
+      return $.alert('店主信息不存在，请退出该页面并重新进入');
+    }
+    var url = '/getShopkeeper';
+    var data = {
+      id: id,
+    };
+    $.post(url, data, function(res) {
+      console.log('初始化店主信息: ', res);
+      if (res.code === 0) {
+        var data = res.data;
+        // 获取店主信息成功
+        $('#name').text(data.name);
+        $('#score').text(data.score);
+      } else {
+        return $.alert('获取店主信息出错，请退出该页面并重新进入：' + res.message);
+      }
+    });
+  }
+
+
+  /**
+   * 页面初始化
+   *    初始化 Dsr 信息
+   */
+  function initDsr() {
+    var url = '/proxy/queryAllDsr';
+    $.get(url, function(res) {
+      console.log('初始化 Dsr 信息 res: ', res);
+      if (res.code === 0) {
+        var data = res.data;
+        var values = data.map(function(item) {
+          return item.Dsr_name;
+        });
+        // dsr 姓名初始化
+        $('#dsrname').picker({
+          title: "请选择DSR姓名",
+          cols: [
+            {
+              textAlign: 'center',
+              values: values,
+            }
+          ]
+        });
+      }
+    });
+  }
+
+  /**
+   * 监听打分事件
+   * @param  {string} id 每个需要打分的服务的ID
+   * @return {null}    null
+   */
+  function eventScore(id) {
+
+    $('#' + id + ' span').click(function() {
+      var start = $(this).attr('value-id');
+      switch (start) {
+        case '1':
+          $('#' + id + '_1').removeClass('hide');
+          $('#' + id + '_2').addClass('hide');
+          $('#' + id + '_3').addClass('hide');
+          $('#' + id + '_4').addClass('hide');
+          $('#' + id + ' span').removeClass('icon-star-full');
+          $('#' + id + ' span').eq(0).addClass('icon-star-full');
+          break;
+        case '2':
+          $('#' + id + '_2').removeClass('hide');
+          $('#' + id + '_1').addClass('hide');
+          $('#' + id + '_3').addClass('hide');
+          $('#' + id + '_4').addClass('hide');
+          $('#' + id + ' span').removeClass('icon-star-full');
+          $('#' + id + ' span').eq(0).addClass('icon-star-full');
+          $('#' + id + ' span').eq(1).addClass('icon-star-full');
+          break;
+        case '3':
+          $('#' + id + '_3').removeClass('hide');
+          $('#' + id + '_1').addClass('hide');
+          $('#' + id + '_2').addClass('hide');
+          $('#' + id + '_4').addClass('hide');
+          $('#' + id + ' span').removeClass('icon-star-full');
+          $('#' + id + ' span').eq(0).addClass('icon-star-full');
+          $('#' + id + ' span').eq(1).addClass('icon-star-full');
+          $('#' + id + ' span').eq(2).addClass('icon-star-full');
+          break;
+        case '4':
+          $('#' + id + '_4').removeClass('hide');
+          $('#' + id + '_1').addClass('hide');
+          $('#' + id + '_2').addClass('hide');
+          $('#' + id + '_3').addClass('hide');
+          $('#' + id + ' span').removeClass('icon-star-full');
+          $('#' + id + ' span').eq(0).addClass('icon-star-full');
+          $('#' + id + ' span').eq(1).addClass('icon-star-full');
+          $('#' + id + ' span').eq(2).addClass('icon-star-full');
+          $('#' + id + ' span').eq(3).addClass('icon-star-full');
+          break;
+        case '5':
+          $('#' + id + '_4').removeClass('hide');
+          $('#' + id + '_1').addClass('hide');
+          $('#' + id + '_2').addClass('hide');
+          $('#' + id + '_3').addClass('hide');
+          $('#' + id + ' span').removeClass('icon-star-full');
+          $('#' + id + ' span').eq(0).addClass('icon-star-full');
+          $('#' + id + ' span').eq(1).addClass('icon-star-full');
+          $('#' + id + ' span').eq(2).addClass('icon-star-full');
+          $('#' + id + ' span').eq(3).addClass('icon-star-full');
+          $('#' + id + ' span').eq(4).addClass('icon-star-full');
+          break;
+        default:
+          $('#' + id + '_1').addClass('hide');
+          $('#' + id + '_2').addClass('hide');
+          $('#' + id + '_3').addClass('hide');
+          $('#' + id + '_4').addClass('hide');
+          $('#' + id + ' span').removeClass('icon-star-full');
+      }
+    });
+  }
+
+
+  /**
+   * dsr姓名和到店日期
+   * @return {object} dsr姓名和到店日期
+   */
+  function getValue() {
+    var dsrname = $('#dsrname').val();
+    var date = $('#date').val();
+    return {
+      dsrname: dsrname,
+      date: date,
+    };
+  }
+
+
+  /**
+   * 获取每项分数
+   * @param  {string} id 打分的项的字符串
+   * @return {obejct}    打分结果
+   */
+  function getScode(id) {
+    var score = $('#' + id + ' span.icon-star-full').length;
+    var items = $('#' + id + '_' + score + ' input[type=checkbox]:checked').map(function() {
+      return $(this).val();
+    }).get();
+    return {
+      score: score,
+      items: items,
+    };
+  }
+
+  // 初始化 localStorage
+  // initStorage();
+  // 到店日期 日历初始化
+  $('#date').calendar();
+  // 初始化 DSR 信息
+  initDsr();
+  // 初始化店主信息
+  initUser();
+  // 服务质量
+  eventScore('serve');
+  // 专业技能
+  eventScore('skill');
+  // 补货质量
+  eventScore('supplement');
+  // 助销服务
+  eventScore('help');
+  // 评论
+  $('#next').click(function() {
+    var dsrData = getValue();
+    console.log('data: ', dsrData);
+    if (!dsrData.dsrname) {
+      $.toptip('请选择DSR姓名', 'warning');
+      return false;
+    }
+    if (!dsrData.date) {
+      $.toptip('请选择DSR到店日期', 'warning');
+      return false;
+    }
+    var sroceServe = getScode('serve');
+    if (sroceServe.score === 0) {
+      $.toptip('请为服务质量打分', 'warning');
+      return false;
+    }
+    var sroceSkill = getScode('skill');
+    if (sroceSkill.score === 0) {
+      $.toptip('请为专业技能打分', 'warning');
+      return false;
+    }
+    var sroceSupplement = getScode('supplement');
+    if (sroceSkill.score === 0) {
+      $.toptip('请为补货质量打分', 'warning');
+      return false;
+    }
+    var sroceHelp = getScode('help');
+    if (sroceSkill.score === 0) {
+      $.toptip('请为助销服务打分', 'warning');
+      return false;
+    }
+    console.log('sroceServe: ', sroceServe);
+    console.log('sroceSkill: ', sroceSkill);
+    console.log('sroceSupplement: ', sroceSupplement);
+    console.log('sroceHelp: ', sroceHelp);
+
+    var url = '/proxy/addComment';
+    var data = {
+      dsrData: dsrData,
+      sroceServe: sroceServe,
+      sroceSkill: sroceSkill,
+      sroceSupplement: sroceSupplement,
+      sroceHelp: sroceHelp,
+    };
+    $.post(url, data, function(res){
+      if (res.code === 0) {
+        $.toptip('评价成功', 'success');
+        // 隐藏打分页面
+        $('#page_comment').addClass('hide');
+        // 显示总体评价页面
+        $('#page_comment_next').removeClass('hide');
+      } else {
+        $.toptip('评价失败：' + res.message, 'error');
+      }
+    });
+  });
+
+  // 其他想说的
+  $('#overall_btn').click(function() {
+    var score = $('#overall span.icon-star-full').length;
+    var text = $('#text').val();
+    var url = '';
+    var data = {};
+    $.post('url', data, function(res) {
+
+    });
+  });
+
+});
