@@ -28,6 +28,10 @@ body, html {
     margin-top: 50px;
 }
 
+.button_sp_area {
+  padding: 15px;
+}
+
 
 /**
  * 评论页面
