@@ -154,7 +154,7 @@ $(document).ready(function() {
    * @param  {string} id 打分的项的字符串
    * @return {obejct}    打分结果
    */
-  function getScode(id) {
+  function getScore(id) {
     var score = $('#' + id + ' span.icon-star-full').length;
     var items = $('#' + id + '_' + score + ' input[type=checkbox]:checked').map(function() {
       return $(this).val();
@@ -193,26 +193,27 @@ $(document).ready(function() {
       $.toptip('请选择DSR到店日期', 'warning');
       return false;
     }
-    var sroceServe = getScode('serve');
+    var sroceServe = getScore('serve');
     if (sroceServe.score === 0) {
       $.toptip('请为服务质量打分', 'warning');
       return false;
     }
-    var sroceSkill = getScode('skill');
+    var sroceSkill = getScore('skill');
     if (sroceSkill.score === 0) {
       $.toptip('请为专业技能打分', 'warning');
       return false;
     }
-    var sroceSupplement = getScode('supplement');
-    if (sroceSkill.score === 0) {
+    var sroceSupplement = getScore('supplement');
+    if (sroceSupplement.score === 0) {
       $.toptip('请为补货质量打分', 'warning');
       return false;
     }
-    var sroceHelp = getScode('help');
-    if (sroceSkill.score === 0) {
+    var sroceHelp = getScore('help');
+    if (sroceHelp.score === 0) {
       $.toptip('请为助销服务打分', 'warning');
       return false;
     }
+    var overallEvaluation = getOverallEvaluation('overall');
     console.log('sroceServe: ', sroceServe);
     console.log('sroceSkill: ', sroceSkill);
     console.log('sroceSupplement: ', sroceSupplement);
@@ -225,6 +226,7 @@ $(document).ready(function() {
       sroceSkill: sroceSkill,
       sroceSupplement: sroceSupplement,
       sroceHelp: sroceHelp,
+      overallEvaluation: overallEvaluation,
     };
     $.post(url, data, function(res){
       if (res.code === 0) {
