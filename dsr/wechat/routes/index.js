@@ -38,12 +38,13 @@ router.get('/init', function(req, res, next) {
     const openid = result.data.openid;
     logger.debug('openid: ', openid);
     // 通过openid API 查看是否已经存在该用户
-    const host = '139.199.77.40';
-    const path = `/ScoringSystemServer/Bind.do?method=isExitWeixin&openid=${openid}`;
+    const host = config.serverHost;
+    const port = config.serverPort;
+    const path = `/ScoringSystemServer/IsExitWeixin&openId=${openid}`;
     http.get({
       host,
       path,
-      port: 8080,
+      port,
     }, (response) => {
       let body = '';
       response.on('data', (chunk) => {
@@ -51,21 +52,24 @@ router.get('/init', function(req, res, next) {
       });
       response.on('end', () => {
         try {
-          const parsed = JSON.parse(body);
-          if (parseInt(parsed[0].id) === -1) {
-            // openid 不存在
-            return res.render('login', {
-              title: '登录',
-              openid: openid,
-            });
-          } else if (parseInt(parsed[0].id) === 1) {
-            // openid 已经存在
-            return res.render('comment', {
-              title: '评论',
-              openid: openid,
-            });
+          const parsed = JSON.parse(body)[0];
+
+          if (parsed.code === 1000) {
+            if (parsed.id === -1) {
+              // 数据库中 openid 不存在
+              return res.render('login', {
+                title: '登录',
+                openid,
+              });
+            } else {
+              return res.render('comment', {
+                title: '登录',
+                openid,
+                shopkeeperId: parsed.id,
+              });
+            }
           } else {
-            return res.render('error', { message: 'API发生错误' });
+            return res.render('error', { message: '获取用户信息失败，请重新进入' });
           }
         } catch (e) {
           return res.render('error', { message: '服务器错误', error: e });

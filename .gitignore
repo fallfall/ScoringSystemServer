@@ -30,7 +30,11 @@ benchmarks/graphs
 .idea
 
 # config
-config*
+dsr/wechat/config/*
+nodejs/wechat/config/*
+nodejs/server/config/*
+!dsr/wechat/config/log4js.js
+!dsr/wechat/config/menu.js
 
 # other
 .settings
