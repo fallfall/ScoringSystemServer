@@ -12,7 +12,8 @@ $(document).ready(function() {
    *    初始化店主信息
    */
   function initUser() {
-    var id = store.get('id');
+    var id = $('#shopKeepperId').val();
+    console.log('初始化店主信息');
     if (!id) {
       return $.alert('店主信息不存在，请退出该页面并重新进入');
     }
