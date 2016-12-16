@@ -35,7 +35,7 @@ router.get('/init', function(req, res, next) {
       return res.json({ code: 1001, error: JSON.stringify(err) });
     }
 
-    const openId = result.data.openId;
+    const openId = result.data.openid;
     logger.debug('result: ', result);
     logger.debug('openId: ', openId);
     // 通过openId API 查看是否已经存在该用户
