@@ -58,13 +58,17 @@ router.get('/init', function(req, res, next) {
           if (parsed.code === 1000 || parsed.code === 1001) {
             if (parsed.id === -1) {
               // 数据库中 openId 不存在
+              logger.debug('数据库中 openId 不存在');
+              logger.debug('openId: ', openId);
               return res.render('login', {
                 title: '登录',
                 openId,
               });
             } else {
+              logger.debug('数据库中 openId 存在');
+              logger.debug('openId: ', openId);
               return res.render('comment', {
-                title: '登录',
+                title: '评论',
                 openId,
                 shopkeeperId: parsed.id,
               });
