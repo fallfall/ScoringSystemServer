@@ -103,9 +103,6 @@ router.post('/verifyTel', (req, res) => {
     try {
       const data = JSON.stringify(body);
       logger.debug('data: ', data);
-      // TODO 错误处理，接口文档不全 详见 issue
-      data.code = 0;
-      console.log('data.code: ', data.code);
       if (data.code === 3000) {
         return res.json({
           code: 0,
@@ -113,7 +110,7 @@ router.post('/verifyTel', (req, res) => {
           id: data.id,
           openId: openId,
         });
-      } else if (data.code === 101){
+      } else if (data.code === 3001){
         return res.json({
           code: 1007,
           message: '验证码错误',
