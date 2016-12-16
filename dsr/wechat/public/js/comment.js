@@ -262,7 +262,7 @@ $(document).ready(function() {
         if (res.code === 0) {
           $.alet('评价成功');
         } else {
-          $.alert('评价失败：' + res.message, 'error');
+          $.alert(res.message, '评价失败');
         }
       });
     });
