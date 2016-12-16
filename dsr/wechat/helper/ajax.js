@@ -24,6 +24,7 @@ const ajax = (path) => {
           // } catch (e) {
           //   reject(e);
           // }
+          console.log('body: ', body);
           resolve(body);
         });
       });

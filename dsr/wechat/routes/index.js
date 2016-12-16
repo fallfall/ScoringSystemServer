@@ -51,6 +51,7 @@ router.get('/init', function(req, res, next) {
         body += chunk;
       });
       response.on('end', () => {
+        logger.debug('body: ', body);
         try {
           const parsed = JSON.parse(body)[0];
           logger.debug('parsed: ', parsed);
