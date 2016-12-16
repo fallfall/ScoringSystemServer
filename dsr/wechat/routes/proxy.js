@@ -204,11 +204,23 @@ router.get('/queryAllDsr', (req, res) => {
   .then((body) => {
     try {
       const data = JSON.stringify(body);
-
+      if (data.code === 0) {
+        return res.json({
+          code: 0,
+          message: '获取DSR列表成功',
+          data: [],
+        });
+      } else {
+        return res.json({
+          code: 1012,
+          message: '获取DSR列表失败',
+          data: [],
+        });
+      }
     } catch (e) {
       logger.debug('e: ', e);
       return res.json({
-        code: 1012,
+        code: 5000,
         message: '获取DSR列表失败，请刷新页面重试',
         e: JSON.stringify(e),
       });

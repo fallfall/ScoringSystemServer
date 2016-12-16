@@ -39,6 +39,7 @@ $(document).ready(function() {
    *    初始化 Dsr 信息
    */
   function initDsr() {
+    console.log('初始化 Dsr 信息');
     var url = '/proxy/queryAllDsr';
     $.get(url, function(res) {
       console.log('初始化 Dsr 信息 res: ', res);
@@ -57,6 +58,8 @@ $(document).ready(function() {
             }
           ]
         });
+      } else {
+        return $.alert('初始化DSR信息失败，请退出页面重试');
       }
     });
   }
