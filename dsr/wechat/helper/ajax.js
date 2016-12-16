@@ -18,12 +18,6 @@ const ajax = (path) => {
           body += chunk;
         });
         response.on('end', () => {
-          // try {
-          //   const parsed = JSON.parse(body);
-          //   resolve(body);
-          // } catch (e) {
-          //   reject(e);
-          // }
           console.log('body: ', body);
           resolve(body);
         });
