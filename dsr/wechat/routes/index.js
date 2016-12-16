@@ -40,7 +40,7 @@ router.get('/init', function(req, res, next) {
     // 通过openid API 查看是否已经存在该用户
     const host = config.serverHost;
     const port = config.serverPort;
-    const path = `/ScoringSystemServer/IsExitWeixin&openId=${openid}`;
+    const path = `/ScoringSystemServer/IsExitWeixin.do?openId=${openid}`;
     http.get({
       host,
       path,
