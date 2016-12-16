@@ -53,7 +53,7 @@ router.get('/init', function(req, res, next) {
       response.on('end', () => {
         try {
           const parsed = JSON.parse(body)[0];
-
+          logger.debug('parsed: ', parsed);
           if (parsed.code === 1000) {
             if (parsed.id === -1) {
               // 数据库中 openid 不存在
@@ -99,10 +99,6 @@ router.get('/comment', (req, res) => {
     openid: openid,
   });
 });
-
-
-
-
 
 
 
