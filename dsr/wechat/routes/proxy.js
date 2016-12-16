@@ -28,7 +28,7 @@ router.post('/sendMsg', (req, res) => {
   .then((body) => {
     logger.debug('body: ', body);
     try {
-      const data = JSON.parse(body)[0];
+      const data = JSON.parse(body);
       logger.debug('data: ', data);
       if (parseInt(data.code) === 2000) {
         return res.json({
@@ -101,7 +101,7 @@ router.post('/verifyTel', (req, res) => {
   .then((body) => {
     logger.debug('body: ', body);
     try {
-      const data = JSON.stringify(body)[0];
+      const data = JSON.stringify(body);
       logger.debug('data: ', data);
       // TODO 错误处理，接口文档不全 详见 issue
       data.code = 0;
@@ -162,7 +162,7 @@ router.post('/getShopkeeper', (req, res) => {
   ajax(path)
   .then((body) => {
     try {
-      const data = JSON.stringify(body)[0];
+      const data = JSON.stringify(body);
       if (parseInt(data.id) !== -1) {
         return res.json({
           code: 0,
@@ -327,7 +327,7 @@ router.post('/addComment', (req, res) => {
   post(path, postData)
   .then((body) => {
     try {
-      const data = JSON.stringify(body)[0];
+      const data = JSON.stringify(body);
       if (data.code === 300) {
         return res.json({
           code: 0,
