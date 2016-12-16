@@ -35,6 +35,7 @@ nodejs/wechat/config/*
 nodejs/server/config/*
 !dsr/wechat/config/log4js.js
 !dsr/wechat/config/menu.js
+!dsr/wechat/config/*.example.js
 
 # other
 .settings
