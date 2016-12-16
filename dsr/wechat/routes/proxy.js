@@ -12,7 +12,6 @@ const router = express.Router();
 
 /**
  * 发送验证码
- * http://139.199.77.40:8080/ScoringSystemServer/Bind.do?method=sendMsg&tel=18328496343
  */
 router.post('/sendMsg', (req, res) => {
   const tel = req.body.tel;
@@ -23,7 +22,7 @@ router.post('/sendMsg', (req, res) => {
     });
   }
 
-  const path = `/ScoringSystemServer/sendMsg.do?tel=${tel}`;
+  const path = `/ScoringSystemServer/SendMsg.do?tel=${tel}`;
   logger.debug('path: ', path);
   ajax(path)
   .then((body) => {
