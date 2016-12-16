@@ -17,7 +17,7 @@ $(document).ready(function() {
     if (!id) {
       return $.alert('店主信息不存在，请退出该页面并重新进入');
     }
-    var url = '/getShopkeeper';
+    var url = '/proxy/getShopkeeper';
     var data = {
       id: id,
     };
