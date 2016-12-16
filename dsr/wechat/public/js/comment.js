@@ -165,6 +165,20 @@ $(document).ready(function() {
     };
   }
 
+
+  /**
+   * 获取整体评价
+   * @return {object}  评价分数和文本
+   */
+  function getOverallEvaluation() {
+    var score = $('#overall span.icon-star-full').length;
+    var text = $('#text').val();
+    return {
+      score: score,
+      text: text,
+    };
+  }
+
   // 初始化 localStorage
   // initStorage();
   // 到店日期 日历初始化
@@ -181,6 +195,9 @@ $(document).ready(function() {
   eventScore('supplement');
   // 助销服务
   eventScore('help');
+  // 总体评价
+  eventScore('overall');
+
   // 评论
   $('#next').click(function() {
     var dsrData = getValue();
@@ -213,42 +230,41 @@ $(document).ready(function() {
       $.toptip('请为助销服务打分', 'warning');
       return false;
     }
-    var overallEvaluation = getOverallEvaluation('overall');
     console.log('sroceServe: ', sroceServe);
     console.log('sroceSkill: ', sroceSkill);
     console.log('sroceSupplement: ', sroceSupplement);
     console.log('sroceHelp: ', sroceHelp);
 
-    var url = '/proxy/addComment';
-    var data = {
-      dsrData: dsrData,
-      sroceServe: sroceServe,
-      sroceSkill: sroceSkill,
-      sroceSupplement: sroceSupplement,
-      sroceHelp: sroceHelp,
-      overallEvaluation: overallEvaluation,
-    };
-    $.post(url, data, function(res){
-      if (res.code === 0) {
-        $.toptip('评价成功', 'success');
-        // 隐藏打分页面
-        $('#page_comment').addClass('hide');
-        // 显示总体评价页面
-        $('#page_comment_next').removeClass('hide');
-      } else {
-        $.toptip('评价失败：' + res.message, 'error');
+    // 隐藏打分页面 显示总体评价页面
+    //    隐藏打分页面
+    $('#page_comment').addClass('hide');
+    //    显示总体评价页面
+    $('#page_comment_next').removeClass('hide');
+
+    // 其他想说的
+    $('#overall_btn').click(function() {
+      var overallEvaluation = getOverallEvaluation();
+      if (overallEvaluation.score === 0) {
+        $.toptip('请对整体评价进行打分');
       }
-    });
-  });
-
-  // 其他想说的
-  $('#overall_btn').click(function() {
-    var score = $('#overall span.icon-star-full').length;
-    var text = $('#text').val();
-    var url = '';
-    var data = {};
-    $.post('url', data, function(res) {
-
+      var data = {
+        dsrData: dsrData,
+        sroceServe: sroceServe,
+        sroceSkill: sroceSkill,
+        sroceSupplement: sroceSupplement,
+        sroceHelp: sroceHelp,
+        overallEvaluation: overallEvaluation,
+      };
+      var url = '/proxy/addComment';
+      console.log('data: ', data);
+      $.post(url, data, function(res){
+        console.log('res: ', res);
+        if (res.code === 0) {
+          $.alet('评价成功');
+        } else {
+          $.alert('评价失败：' + res.message, 'error');
+        }
+      });
     });
   });
 
