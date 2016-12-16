@@ -27,6 +27,7 @@ $(document).ready(function() {
         // 获取店主信息成功
         $('#name').text(data.name);
         $('#score').text(data.score);
+        $('#shopKeepperId').text(data.id);
       } else {
         return $.alert('获取店主信息出错，请退出该页面并重新进入：' + res.message);
       }
@@ -137,15 +138,22 @@ $(document).ready(function() {
 
   /**
    * dsr姓名和到店日期
-   * @return {object} dsr姓名和到店日期
+   * @return {object} dsr姓名和到店日期，以及店主id
    */
   function getValue() {
     var dsrname = $('#dsrname').val();
     var date = $('#date').val();
-    return {
-      dsrname: dsrname,
-      date: date,
-    };
+    var shopKeepperId = $('#shopKeepperId').val();
+    if (parseInt(shopKeepperId, 10) === -1) {
+      return false;
+    } else {
+      return {
+        dsrname: dsrname,
+        dsrId: dsrId,
+        date: date,
+        shopKeepperId: shopKeepperId,
+      };
+    }
   }
 
 
@@ -200,14 +208,18 @@ $(document).ready(function() {
 
   // 评论
   $('#next').click(function() {
-    var dsrData = getValue();
-    console.log('data: ', dsrData);
-    if (!dsrData.dsrname) {
+    var userData = getValue();
+    console.log('data: ', userData);
+    if (!userData.dsrname) {
       $.toptip('请选择DSR姓名', 'warning');
       return false;
     }
-    if (!dsrData.date) {
+    if (!userData.date) {
       $.toptip('请选择DSR到店日期', 'warning');
+      return false;
+    }
+    if (parseInt(userData.shopKeepperId, 10) === -1) {
+      $.toptip('店主信息错误，请退出重新进入该页面', 'warning');
       return false;
     }
     var sroceServe = getScore('serve');
@@ -248,7 +260,7 @@ $(document).ready(function() {
         $.toptip('请对整体评价进行打分');
       }
       var data = {
-        dsrData: dsrData,
+        userData: userData,
         sroceServe: sroceServe,
         sroceSkill: sroceSkill,
         sroceSupplement: sroceSupplement,

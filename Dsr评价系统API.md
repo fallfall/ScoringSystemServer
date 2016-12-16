@@ -198,3 +198,21 @@
          2.[{"code":"301","state":"fail","reason":"commit fai"}]
 
       }
+
+
+
+```
+"dsrId":"1",
+	"shopkeeperId":"5",
+	"overallScore":"1",
+	 "standbyScore":"1",
+	 "serviceScore":"1",
+	 "majorScore":"1",
+	 "replenishmentScore":"1",
+	 "overallComment":"1",
+	 "standbyComment":"1",
+	 "majorComment":"1",
+	 "replenishmentComment":"1",
+	 "serviceComment":"1",
+	 "arriveTime":"1994-9-14"
+```

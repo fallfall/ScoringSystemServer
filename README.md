@@ -271,4 +271,13 @@ path: /proxy/addComment
   message: '评论失败'
 }
 
+{
+  code: 1021,
+  message: '总体评价分数不能为空'
+}
+
+{
+  code: 1021,
+  message: '评论失败'
+}
 ```

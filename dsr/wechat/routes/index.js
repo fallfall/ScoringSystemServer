@@ -12,12 +12,12 @@ const router = express.Router();
 
 // 初始化路由
 // 处理菜单点进来之后的操作
-// 首先获取 openid
-// 然后判断 openid 是否存在
-//   存在，则登录成功，进入到评论页面；并把openid传递给前端
-//   不存在，则进入登录页面；并把openid传递给前端
+// 首先获取 openId
+// 然后判断 openId 是否存在
+//   存在，则登录成功，进入到评论页面；并把openId传递给前端
+//   不存在，则进入登录页面；并把openId传递给前端
 router.get('/init', function(req, res, next) {
-  // 获取 openid
+  // 获取 openId
   // logger.debug('req: ', req);
   const code = req.query.code;
   const state = req.query.state;
@@ -28,19 +28,19 @@ router.get('/init', function(req, res, next) {
     return res.json({ code: 0 });
   }
 
-  // 获取 openid
+  // 获取 openId
   client.getAccessToken(code, (err, result) => {
     if (err) {
-      logger.error('获取openid失败:', err);
+      logger.error('获取openId失败:', err);
       return res.json({ code: 1001, error: JSON.stringify(err) });
     }
 
-    const openid = result.data.openid;
-    logger.debug('openid: ', openid);
-    // 通过openid API 查看是否已经存在该用户
+    const openId = result.data.openId;
+    logger.debug('openId: ', openId);
+    // 通过openId API 查看是否已经存在该用户
     const host = config.serverHost;
     const port = config.serverPort;
-    const path = `/ScoringSystemServer/IsExitWeixin.do?openId=${openid}`;
+    const path = `/ScoringSystemServer/IsExitWeixin.do?openId=${openId}`;
     http.get({
       host,
       path,
@@ -57,15 +57,15 @@ router.get('/init', function(req, res, next) {
           logger.debug('parsed: ', parsed);
           if (parsed.code === 1000 || parsed.code === 1001) {
             if (parsed.id === -1) {
-              // 数据库中 openid 不存在
+              // 数据库中 openId 不存在
               return res.render('login', {
                 title: '登录',
-                openid,
+                openId,
               });
             } else {
               return res.render('comment', {
                 title: '登录',
-                openid,
+                openId,
                 shopkeeperId: parsed.id,
               });
             }
@@ -87,20 +87,20 @@ router.get('/init', function(req, res, next) {
 
 // 登录（TODO delete）
 router.get('/login', (req, res) => {
-  const openid = req.query.openid;
+  const openId = req.query.openId;
   res.render('login', {
     title: '登录',
-    openid: openid,
+    openId: openId,
   });
 });
 
 
 // 评论 (TODO delete）
 router.get('/comment', (req, res) => {
-  const openid = req.query.openid;
+  const openId = req.query.openId;
   res.render('comment', {
     title: '评论',
-    openid: openid,
+    openId: openId,
   });
 });
 

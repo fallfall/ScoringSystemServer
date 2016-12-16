@@ -121,7 +121,7 @@
   function getValue() {
     var phone = document.getElementById('phone').value;
     var code = document.getElementById('code').value;
-    var openId = document.getElementById('openid').value;
+    var openId = document.getElementById('openId').value;
     var regPhone = /^1(3[0-9]|4[57]|5[0-35-9]|7[01678]|8[0-9])\d{8}$/;
     if (!regPhone.test(phone)) {
       $.alert('手机号格式错误，请重新输入！');
@@ -196,15 +196,15 @@
         if (res.code === 0) {
           // $.alert('登录成功');
           $.toptip('登录成功!', 'success');
-          // 将 openid 和 id 存入 cookie
-          var openid = document.getElementById('openid').value;
+          // 将 openId 和 id 存入 cookie
+          var openId = document.getElementById('openId').value;
           var id = res.id;
-          store.set('openid', openid);
+          store.set('openId', openId);
           store.set('id', id);
-          console.log('openid: ', store.get('openid'));
+          console.log('openId: ', store.get('openId'));
           console.log('id: ', store.get('id'));
           // 跳转到评论页
-          // window.location.href = '/comment?openid=' + openid;
+          // window.location.href = '/comment?openId=' + openId;
           $.hideLoading();
         } else {
           return $.alert(res.message);

@@ -5,10 +5,10 @@ const config = require('../config/config');
 const wechatConfig = require('../config/wechat');
 const log4js = require('./../config/log4js');
 const ajax = require('./../helper/ajax');
+const post = require('./../helper/post');
 const client = new OAuth(wechatConfig.appid, wechatConfig.appSecret);
 const logger = log4js.getLogger('/routes/index');
 const router = express.Router();
-
 
 /**
  * 发送验证码
@@ -23,7 +23,7 @@ router.post('/sendMsg', (req, res) => {
     });
   }
 
-  const path = `/ScoringSystemServer/Bind.do?method=sendMsg&tel=${tel}`;
+  const path = `/ScoringSystemServer/sendMsg.do?tel=${tel}`;
   logger.debug('path: ', path);
   ajax(path)
   .then((body) => {
@@ -31,15 +31,20 @@ router.post('/sendMsg', (req, res) => {
     try {
       const data = JSON.parse(body)[0];
       logger.debug('data: ', data);
-      if (parseInt(data.code) === 100) {
+      if (parseInt(data.code) === 2000) {
         return res.json({
           code: 0,
           message: '发送验证码成功',
         });
-      } else if (parseInt(data.code) === 101) {
+      } else if (parseInt(data.code) === 2001) {
         return res.json({
           code: 1002,
           message: '手机号未注册，不能进行登录',
+        });
+      } else if (parseInt(data.code) === 2004) {
+        return res.json({
+          code: 1002,
+          message: '发送短信验证码失败，请稍后重试',
         });
       } else {
         return res.json({
@@ -60,7 +65,7 @@ router.post('/sendMsg', (req, res) => {
     return res.json({
       code: 5000,
       message: '服务器错误',
-      e: JSON.stringify(e),
+      error: e,
     });
   })
 });
@@ -92,7 +97,7 @@ router.post('/verifyTel', (req, res) => {
       message: '请从微信进入该页面',
     });
   }
-  const path = `/ScoringSystemServer/Bind.do?method=VerifyTel&tel=${tel}&Vcode=${vCode}&openId=${openId}`;
+  const path = `/ScoringSystemServer/Bind.do?tel=${tel}&vCode=${vCode}&openId=${openId}`;
   ajax(path)
   .then((body) => {
     logger.debug('body: ', body);
@@ -102,11 +107,12 @@ router.post('/verifyTel', (req, res) => {
       // TODO 错误处理，接口文档不全 详见 issue
       data.code = 0;
       console.log('data.code: ', data.code);
-      if (data.code === 0) {
+      if (data.code === 3000) {
         return res.json({
           code: 0,
           message: '绑定成功',
           id: data.id,
+          openId: openId,
         });
       } else if (data.code === 101){
         return res.json({
@@ -133,7 +139,7 @@ router.post('/verifyTel', (req, res) => {
     return res.json({
       code: 5000,
       message: '服务器错误',
-      e: JSON.stringify(e),
+      e: e,
     });
   });
 });
@@ -153,16 +159,16 @@ router.post('/getShopkeeper', (req, res) => {
     });
   }
 
-  const path = `/ScoringSystemServer/ShopKeeper.do?method=getShopkeeper&id=${id}`;
+  const path = `/ScoringSystemServer/ShopKeeper.do?shopkeeperId=${id}`;
   ajax(path)
   .then((body) => {
     try {
-      const data = JSON.stringify(body);
-      if (parseInt(data.id) > 0) {
+      const data = JSON.stringify(body)[0];
+      if (parseInt(data.id) !== -1) {
         return res.json({
           code: 0,
           message: '查询店主信息成功',
-          data: data,
+          data: data.id,
         });
       } else if (parseInt(data) === -1) {
         return res.json({
@@ -203,12 +209,13 @@ router.get('/queryAllDsr', (req, res) => {
   ajax(path)
   .then((body) => {
     try {
+      console.log('data: ', data);
       const data = JSON.stringify(body);
-      if (data.code === 0) {
+      if (data.length !== 0) {
         return res.json({
           code: 0,
           message: '获取DSR列表成功',
-          data: [],
+          data: data,
         });
       } else {
         return res.json({
@@ -242,9 +249,9 @@ router.get('/queryAllDsr', (req, res) => {
  * http://139.199.77.40:8080/ScoringSystemServer/DsrScore.do?method=addComment&dsr_id=1&shopkeeper_id=5&ArriveTime=1994-9-14&major_score=1&replenishment_score=1&service_score=1&standby_score=1&Overall_score=1&comment=1
  */
 router.post('/addComment', (req, res) => {
-  const shopkeeperId = req.body.shopkeeperId;
-  const dsrId = req.body.dsrId;
-  const dsrArriveTime = req.body.dsrArriveTime;
+  const shopkeeperId = req.body.userData.shopkeeperId;
+  const dsrId = req.body.userData.dsrId;
+  const dsrArriveTime = req.body.userData.dsrArriveTime;
   const sroceServe = req.body.sroceServe;
   const textServe = req.body.textServe;
   const sroceSkill = req.body.sroceSkill;
@@ -271,47 +278,74 @@ router.post('/addComment', (req, res) => {
       message: 'DSR到店日期不存在',
     });
   }
-  if(!sroceServe) {
+  if(sroceServe.score === 0) {
     return res.json({
       code: 1016,
       message: '服务质量分数不能为空',
     });
   }
-  if(!sroceSkill) {
+  if(sroceSkill.score === 0) {
     return res.json({
       code: 1017,
       message: '专业技能分数不能为空',
     });
   }
-  if(!sroceSupplement) {
+  if(sroceSupplement.score === 0) {
     return res.json({
       code: 1018,
       message: '补货质量分数不能为空',
     });
   }
-  if(!sroceHelp) {
+  if(sroceHelp.score === 0) {
     return res.json({
       code: 1019,
       message: '助销服务分数不能为空',
     });
   }
+  if(overallEvaluation.score === 0) {
+    return res.json({
+      code: 1021,
+      message: '总体评价分数不能为空',
+    });
+  }
 
-  const path = `/ScoringSystemServer/DsrScore.do?method=addComment&dsr_id=1&shopkeeper_id=5&ArriveTime=1994-9-14&major_score=1&replenishment_score=1&service_score=1&standby_score=1&Overall_score=1&comment=1`;
-  ajax(path)
+  const path = `/ScoringSystemServer/DsrScore.do`;
+  const postData = {
+    dsrId: dsrId,
+    shopkeeperId: shopkeeperId,
+    overallScore: overallEvaluation.score,
+    standbyScore: sroceHelp.score,
+    serviceScore: sroceServe.score,
+    majorScore: sroceSkill.score,
+    replenishmentScore: sroceSupplement.score,
+    overallComment: overallEvaluation.text,
+    standbyComment: sroceHelp.text,
+    majorComment: sroceSkill.text,
+    replenishmentComment: sroceSupplement.text,
+    serviceComment: sroceServe.text,
+    arriveTime: dsrArriveTime,
+  };
+  post(path, postData)
   .then((body) => {
     try {
-      const data = JSON.stringify(body);
-
-      return res.json({
-        code: 0,
-        message: '评论成功',
-      });
+      const data = JSON.stringify(body)[0];
+      if (data.code === 300) {
+        return res.json({
+          code: 0,
+          message: '评论成功',
+        });
+      } else {
+        return res.json({
+          code: 1021,
+          message: '评论失败',
+        });
+      }
     } catch (e) {
       logger.debug('e: ', e);
       return res.json({
         code: 1020,
         message: '评论失败',
-        e: JSON.stringify(e),
+        error: e,
       });
     }
   })
@@ -320,7 +354,7 @@ router.post('/addComment', (req, res) => {
     return res.json({
       code: 5000,
       message: '服务器错误',
-      e: JSON.stringify(e),
+      error: e,
     });
   });
 });
