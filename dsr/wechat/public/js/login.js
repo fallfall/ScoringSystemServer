@@ -207,6 +207,7 @@
           // window.location.href = '/comment?openId=' + openId;
           $.hideLoading();
         } else {
+          $.hideLoading();
           return $.alert(res.message);
         }
       });
