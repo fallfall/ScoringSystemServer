@@ -10,162 +10,167 @@
 
 该模块接口用于绑定微信账号和认证电话信息。
 
-- **绑定** 
-   
-1. 是否绑定微信
-   
-   ```
-     {
-
-    "method":
+- **绑定**
+   1. 是否绑定微信
 
 
-         "GET&POST"
 
-    "url":
-       
-         "ScoringSystemServer/Bind.do",
+            method: GET&POST
+            url:ScoringSystemServer/IsExitWeixin.do      
 
-    "params":{
+          //params
 
-        "method":"isExitWeixin",
+            openId:"当前用户的openId"
 
-        "open_id":"当前用户的OpenId",
-      }  return:{
-   
-         1.{"id":"-1"};
-         2.{"id":"1"};
-         //id为用户编号，-1表示未绑定过
+
+
+         //return
+
+             {"id":7,  //id为用户ID
+            "message":"weiXin already bind",
+            "code":1000}
+
+	         {"id":-1,
+	          "message":"weiXin not bind",
+	          "code":1001}
+
+	        {"id":0,
+	          "message":"openId null",
+	          "code":1002}
+
+	        {"id":0,
+	          "message":"error try again",
+	          "code":5000}
       }
-        
-  ```
-  
-2. 短信验证
-   
-   ```
- 
-     {
-    "method":
+
+   2. 短信验证
 
 
-         "GET&POST"
+            method: GET&POST
+            url:ScoringSystemServer/SendMsg.do     
 
-    "url":
-       
-         "ScoringSystemServer/Bind.do",
+          //params
 
-    "params":{
-
-        "method":"sendMsg",
-
-        "tel":"将发送短信的电话号码",
-      }  return:{
-   
-         1.{"code":"100","state":"success","reason":"already send"};
-         2.{"code":"101","state":"fail","reason":"tel not register"};
-         3.{"code":"102","state":"fail","reason":"send fail"};
-        
-     }  
-```
-
-3.验证码校验及绑定
-
-```
-     {
-    "method":
+            tel:"18428360355"
 
 
-         "GET&POST"
 
-    "url":
-       
-         "ScoringSystemServer/Bind.do",
+         //return
 
-    "params":{
+             {"code":2000,
+              "message":"send message"}
 
-        "method":"VerifyTel",
+	         {"code":2001,
+              "message":"tel not register"}
 
-        "tel":"用户输入的电话号码",
+	        {"code":2002,
+              "message":"send fail"}
 
-        "Vcode":"用户输入的验证码",
+	        {"code":2003,
+              "message":"tel null"}
 
-        "openId":"当前用户的OpenId",
-      }  return:{
-   
-         1.{"id":"-1"};
-         2.{"id":"1"};
-         //id为用户编号，-1表示未绑定过
-      }  
-```       
+            {"code":2004,
+              "message":"API error try again"}
+      }
 
 
-- **评价** 
-   
-        
-1. 获取店主信息
-  
-```
-     {
-    "method":
+   3. 验证码校验及绑定
 
 
-         "GET&POST"
 
-    "url":
-       
-         "ScoringSystemServer/ShopKeeper.do",
+            method: GET&POST
+            url:ScoringSystemServer/Bind.do     
+         //params
 
-    "params":{
+            tel:"18428360355"
+            vCode："483651"
+            openId："oCqd0wwCox7mfNC2sBp1FZRxFY4Q"
 
-        "method":"getShopkeeper",
 
-        "id":"绑定时获得的用户id",
+         //return
 
-      }  return:{
-   
-         1.{"id":5,"ShopkeeperTell":"18428360355","weixin_id":"hello","shop_id":"haha","integration":0} 
-         2.{"id":-1,"ShopkeeperTell":"NULL","weixin_id":"NULL","shop_id":"NULL","integration":0} 
-         //id为用户编号，-1表示未绑定过，此时验证存在异常
+             {"code":3000,
+              "message":"band success"}
+
+	         {"code":3001,
+              "message":"Vcode or tel wrong"}
+
+	        {"code":3002,
+              "message":"Vcode lose efficacy"}
+
+	        {"code":3003,
+              "message":"tel null"}
+
+            {"code":3004,
+              "message":"vCode null"}
+
+            {"code":3005,
+              "message":"openId null"}
+
+            {"code":3006,
+              "message":"error try again"}
+
+      }
+
+- **评价**
+
+
+   1. 获取店主信息
+
+            method: GET&POST
+            url:ScoringSystemServer/ShopKeeper.do
+         //params
+
+            shopkeeperId:"5"
+
+           //return
+
+           //查询成功
+
+            {"id":7,"ShopkeeperTell":"18428360355","weixin_id":"oCqd0wwCox7mfNC2sBp1FZRxFY4Q","shop_id":"","integration":0}
       }  
 
-```
-        
- 2. 获取Dsr信息
-  
-```
-     {
-    "method":
+        //不存在该Id的店主
 
 
-         "GET&POST"
+            {"id":-1,"ShopkeeperTell":"NULL","weixin_id":"NULL","shop_id":"NULL","integration":0}
 
-    "url":
-       
-         "ScoringSystemServer/Dsr.do",
 
-    "params":{
+   2. 获取Dsr信息
 
-        "method":"queryAllDsr",
+            method: GET&POST
+            url:ScoringSystemServer/Dsr.do
+         //params
 
-      }  return:{
-   
-         1.[{"id":1,"Dsr_Ename":"Ename","Dsr_name":"Name"},{"id":3,"Dsr_Ename":"Ename1","Dsr_name":"Name1"}] 
+            method:"queryAllDsr"
+
+           //return
+
+            {"id":1,"Dsr_Ename":"haha","Dsr_name":"haha1"},{"id":2,"Dsr_Ename":"haha2","Dsr_name":"haha2"},{"id":3,"Dsr_Ename":"haha3","Dsr_name":"haha3"},{"id":4,"Dsr_Ename":"haha4","Dsr_name":"haha4"}
       }  
-```
 
-1. 提交评论
- 
- ```
-
-     {
-    "method":
+   1. 提交评论
 
 
-         "GET&POST"
+            method: GET&POST
+            url:ScoringSystemServer/DsrScore.do?
+         //params
 
-    "url":
-       
-         "ScoringSystemServer/DsrScore.do",
+            dsrId:1(int)
+            shopkeeperId:5(int)
+            overallScore:1(int)
+            standbyScore:1(int)
+            serviceScore:1(int)
+            majorScore:1(int)
+            replenishmentScore:1(int)
+            overallComment:string
+            standbyComment:string
+            majorComment:string
+            replenishmentComment:string
+            arriveTime="1994-9-14"
+
+
+           //return
 
     "params":{
 
@@ -176,11 +181,11 @@
         "shopkeeper_id":"评价的店主的id",
 
         "ArriveTime":"选中的到店时间",
-  
+
         "major_score":"专业",
-      
+
         "replenishment_score":"补货",
-     
+
         "standby_score":"助销",
 
         "Overall_score":"总体",
@@ -188,11 +193,8 @@
         "service_score":"服务",
 
       }  return:{
-   
-         1.[{"code":"300","state":"succes","reason":"comment commit"}] 
-         2.[{"code":"301","state":"fail","reason":"commit fai"}] 
-        
-      }
-```
 
-## 红包 ##
+         1.[{"code":"300","state":"succes","reason":"comment commit"}]
+         2.[{"code":"301","state":"fail","reason":"commit fai"}]
+
+      }
