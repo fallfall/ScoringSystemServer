@@ -146,7 +146,7 @@
 
            //return
 
-            {"id":1,"Dsr_Ename":"haha","Dsr_name":"haha1"},{"id":2,"Dsr_Ename":"haha2","Dsr_name":"haha2"},{"id":3,"Dsr_Ename":"haha3","Dsr_name":"haha3"},{"id":4,"Dsr_Ename":"haha4","Dsr_name":"haha4"}
+            {"id":1,"Dsr_Ename":"haha","Dsr_name":"haha1"},{"id":2,"Dsr_Ename":"haha2","Dsr_name":"haha2"},        {"id":3,"Dsr_Ename":"haha3","Dsr_name":"haha3"},{"id":4,"Dsr_Ename":"haha4","Dsr_name":"haha4"}
       }  
 
    1. 提交评论
@@ -171,48 +171,18 @@
 
 
            //return
+	   
+	   {"code":4000,
+              "message":"comment ok redpack ok"}
+	   
+	   {"code":4001,
+              "message":"comment  fail"}  //评论失败不会发红包
+      
+	   {"code":4002,
+              "message":""comment ok redpack:红包失败原因"}
+	      
+	   {"code":4003,
+              "message":"comment ok redpack Api error"}
+	   
 
-    "params":{
-
-        "method":"addComment",
-
-        "dsr_id":"评价的dsr的id",
-
-        "shopkeeper_id":"评价的店主的id",
-
-        "ArriveTime":"选中的到店时间",
-
-        "major_score":"专业",
-
-        "replenishment_score":"补货",
-
-        "standby_score":"助销",
-
-        "Overall_score":"总体",
-
-        "service_score":"服务",
-
-      }  return:{
-
-         1.[{"code":"300","state":"succes","reason":"comment commit"}]
-         2.[{"code":"301","state":"fail","reason":"commit fai"}]
-
-      }
-
-
-
-```
-"dsrId":"1",
-	"shopkeeperId":"5",
-	"overallScore":"1",
-	 "standbyScore":"1",
-	 "serviceScore":"1",
-	 "majorScore":"1",
-	 "replenishmentScore":"1",
-	 "overallComment":"1",
-	 "standbyComment":"1",
-	 "majorComment":"1",
-	 "replenishmentComment":"1",
-	 "serviceComment":"1",
-	 "arriveTime":"1994-9-14"
-```
+   
