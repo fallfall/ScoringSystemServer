@@ -27,6 +27,7 @@ body, html {
 .login_button {
     margin-top: 50px;
     margin-bottom: 50px;
+    height: 100px;
 }
 
 .button_sp_area {
