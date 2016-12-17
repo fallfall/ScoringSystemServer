@@ -104,7 +104,7 @@
       if (parseInt(res.code) === 0) {
         // 发送验证码成功
         // $.alert('发送验证码成，请注意查收短信！')
-        $.toptip('发送验证码成，请注意查收短信！', 'success');
+        $.alert('发送验证码成，请注意查收短信！');
         return true;
       } else {
         $.alert(res.message);

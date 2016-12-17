@@ -166,7 +166,7 @@ router.post('/getShopkeeper', (req, res) => {
         return res.json({
           code: 0,
           message: '查询店主信息成功',
-          data: data.id,
+          data: data,
         });
       } else if (parseInt(data) === -1) {
         return res.json({
