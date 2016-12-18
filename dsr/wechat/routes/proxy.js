@@ -72,7 +72,7 @@ router.post('/sendMsg', (req, res) => {
 
 /**
  * 绑定手机号
- * (验证码校验及绑定) /ScoringSystemServer/Bind.do?method=VerifyTel&tel=18428360355&Vcode=004567&openId=oCqd0wwCox7mfNC2sBp1FZRxFY4Q
+ * (验证码校验及绑定)
  */
 router.post('/verifyTel', (req, res) => {
   const tel = req.body.tel;
