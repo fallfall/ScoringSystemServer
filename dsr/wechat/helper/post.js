@@ -10,15 +10,17 @@ const post = (path, data) => {
   const postData = querystring.stringify(data);
   return new Promise((resolve, reject) => {
     d.run(() => {
-      const req = http.request({
+      const options = {
         host: config.serverHost,
         path,
         port: config.serverPort,
+        method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
           'Content-Length': postData.length
         }
-      }, (response) => {
+      };
+      const req = http.request(options, (response) => {
         let body = '';
         response.on('data', (chunk) => {
           body += chunk;
