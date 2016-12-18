@@ -339,7 +339,7 @@ logger.debug('req.body: ', req.body);
           code: 0,
           message: '评论成功',
         });
-      } else if (parseInt(data.code, 10) === 4002) {
+      } else if (parseInt(data.code, 10) === 4002 || parseInt(data.code, 10) === 4003) {
         return res.json({
           code: 1022,
           message: '评论成功，红包发送失败',
