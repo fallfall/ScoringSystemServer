@@ -3,15 +3,6 @@
    * 绑定页面
     */
 
-  // 初始化 localStorage
-  init();
-  function init() {
-    if (!store.enabled) {
-      $.alert('Local storage is not supported by your browser. Please disable "Private Mode", or upgrade to a modern browser.')
-      return false;
-    }
-  }
-
 
   /**
      * 发送ajax请求
@@ -168,7 +159,7 @@
     }
     var regPhone = /^1(3[0-9]|4[57]|5[0-35-9]|7[01678]|8[0-9])\d{8}$/;
     if (!regPhone.test(phone)) {
-      $.alert('手机号格式错误，请重新输入！');
+      $.alert('手机号格式错误，请重新输入');
       return false;
     }
     sendCode(phone);
@@ -201,10 +192,6 @@
           var id = res.id;
           console.log('openId: ', openId);
           console.log('id: ', id);
-          // store.set('openId', openId);
-          // store.set('id', id);
-          // console.log('openId: ', store.get('openId'));
-          // console.log('id: ', store.get('id'));
           // 跳转到评论页
           window.location.href = '/comment?openId=' + openId + '&id=' + id;
           $.hideLoading();
