@@ -117,6 +117,10 @@
     var phone = document.getElementById('phone').value;
     var code = document.getElementById('code').value;
     var openId = document.getElementById('openId').value;
+    if (phone.length === 0) {
+      $.alert('请输入手机号');
+      return false;
+    }
     var regPhone = /^1(3[0-9]|4[57]|5[0-35-9]|7[01678]|8[0-9])\d{8}$/;
     if (!regPhone.test(phone)) {
       $.alert('手机号格式错误，请重新输入');
