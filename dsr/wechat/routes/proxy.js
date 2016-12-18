@@ -208,7 +208,7 @@ router.get('/queryAllDsr', (req, res) => {
   .then((body) => {
     try {
       console.log('body: ', body);
-      const data = JSON.stringify(body);
+      const data = JSON.parse(body);
       console.log('data: ', data);
       if (data.code === 1) {
         return res.json({
