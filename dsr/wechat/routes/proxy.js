@@ -101,7 +101,7 @@ router.post('/verifyTel', (req, res) => {
   .then((body) => {
     logger.debug('body: ', body);
     try {
-      const data = JSON.stringify(body);
+      const data = JSON.parse(body);
       logger.debug('data: ', data);
       if (data.code === 3000) {
         return res.json({
