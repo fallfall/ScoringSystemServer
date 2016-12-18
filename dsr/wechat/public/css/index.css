@@ -99,7 +99,7 @@ body, html {
   flex: 1;
 }
 .icon-star-full {
-  color: red;
+  color: #ff8000;
 }
 
 .content_checkbox {
