@@ -146,8 +146,8 @@ $(document).ready(function() {
     var date = $('#date').val();
     var shopKeepperId = $('#shopKeepperId').val();
     var dsrName = $('#dsrname').val();
-    var drsId = $('#dsrname').attr('data-values');
-    console.log('drsId: ', drsId);
+    var dsrId = $('#dsrname').attr('data-values');
+    console.log('dsrId: ', dsrId);
     if (parseInt(shopKeepperId, 10) === -1) {
       return false;
     } else {
