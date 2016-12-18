@@ -199,12 +199,14 @@
           // 将 openId 和 id 存入 cookie
           var openId = document.getElementById('openId').value;
           var id = res.id;
-          store.set('openId', openId);
-          store.set('id', id);
-          console.log('openId: ', store.get('openId'));
-          console.log('id: ', store.get('id'));
+          console.log('openId: ', openId);
+          console.log('id: ', id);
+          // store.set('openId', openId);
+          // store.set('id', id);
+          // console.log('openId: ', store.get('openId'));
+          // console.log('id: ', store.get('id'));
           // 跳转到评论页
-          window.location.href = '/comment?openId=' + openId + '&id=id';
+          window.location.href = '/comment?openId=' + openId + '&id=' + id;
           $.hideLoading();
         } else {
           $.hideLoading();
