@@ -214,7 +214,7 @@ router.get('/queryAllDsr', (req, res) => {
         return res.json({
           code: 0,
           message: '获取DSR列表成功',
-          data: data.data,
+          data: JSON.parse(data.data),
         });
       } else {
         return res.json({
