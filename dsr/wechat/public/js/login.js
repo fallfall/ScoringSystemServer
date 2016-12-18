@@ -154,7 +154,7 @@
     console.log('phone: ', phone);
     console.log('phone: ', phone.length);
     if (phone.length === 0) {
-      $.alert('请输入手机号！');
+      $.alert('请输入手机号');
       return false;
     }
     var regPhone = /^1(3[0-9]|4[57]|5[0-35-9]|7[01678]|8[0-9])\d{8}$/;
