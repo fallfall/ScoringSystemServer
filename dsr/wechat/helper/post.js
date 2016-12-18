@@ -22,6 +22,9 @@ const post = (path, data) => {
       };
       console.log('options: ', options);
       const req = http.request(options, (response) => {
+        console.log('STATUS: ' + res.statusCode);
+        console.log('HEADERS: ' + JSON.stringify(res.headers));
+        res.setEncoding('utf8');
         let body = '';
         response.on('data', (chunk) => {
           body += chunk;
@@ -30,6 +33,9 @@ const post = (path, data) => {
           console.log('body: ', body);
           resolve(body);
         });
+      });
+      req.on('error', function(e) {
+        console.log('problem with request: ' + e.message);
       });
       req.write(postData);
       req.end();
