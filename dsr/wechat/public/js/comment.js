@@ -261,14 +261,40 @@ $(document).ready(function() {
       if (overallEvaluation.score === 0) {
         $.toptip('请对整体评价进行打分');
       }
+      // var data = {
+      //   userData: userData,
+      //   sroceServe: sroceServe,
+      //   sroceSkill: sroceSkill,
+      //   sroceSupplement: sroceSupplement,
+      //   sroceHelp: sroceHelp,
+      //   overallEvaluation: overallEvaluation,
+      // };
       var data = {
-        userData: userData,
-        sroceServe: sroceServe,
-        sroceSkill: sroceSkill,
-        sroceSupplement: sroceSupplement,
-        sroceHelp: sroceHelp,
-        overallEvaluation: overallEvaluation,
+        shopkeeperId: userData.shopKeepperId,
+        dsrId: userData.dsrId,
+        dsrArriveTime: userData.date,
+        sroceServe: sroceServe.score,
+        textServe: sroceServe.items.join('||||');
+        sroceSkill: sroceSkill.score,
+        textSkill: sroceSkill.text,
+        sroceSupplement: sroceSupplement.score,
+        textSupplement: sroceSupplement.text,
+        sroceHelp: sroceHelp.score,
+        textHelp: sroceHelp.text,
+        scoreOverallEvaluation: overallEvaluation.score,
+        textOverallEvaluation: overallEvaluation.text,
       };
+      // const shopkeeperId = req.body.userData.shopkeeperId;
+      // const dsrId = req.body.userData.dsrId;
+      // const dsrArriveTime = req.body.userData.dsrArriveTime;
+      // const sroceServe = req.body.sroceServe;
+      // const textServe = req.body.textServe;
+      // const sroceSkill = req.body.sroceSkill;
+      // const textSkill = req.body.textSkill;
+      // const sroceSupplement = req.body.sroceSupplement;
+      // const textSupplement = req.body.textSupplement;
+      // const sroceHelp = req.body.sroceHelp;
+      // const textHelp = req.body.textHelp;
       var url = '/proxy/addComment';
       console.log('data: ', data);
       $.post(url, data, function(res){

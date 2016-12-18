@@ -251,9 +251,9 @@ router.get('/queryAllDsr', (req, res) => {
  */
 router.post('/addComment', (req, res) => {
 logger.debug('req.body: ', req.body);
-  const shopkeeperId = req.body.userData.shopkeeperId;
-  const dsrId = req.body.userData.dsrId;
-  const dsrArriveTime = req.body.userData.dsrArriveTime;
+  const shopkeeperId = req.body.shopkeeperId;
+  const dsrId = req.body.dsrId;
+  const dsrArriveTime = req.body.dsrArriveTime;
   const sroceServe = req.body.sroceServe;
   const textServe = req.body.textServe;
   const sroceSkill = req.body.sroceSkill;
@@ -262,6 +262,8 @@ logger.debug('req.body: ', req.body);
   const textSupplement = req.body.textSupplement;
   const sroceHelp = req.body.sroceHelp;
   const textHelp = req.body.textHelp;
+  const scoreOverallEvaluation = req.body.scoreOverallEvaluation;
+  const textOverallEvaluation = req.body.textOverallEvaluation;
   if(!shopkeeperId) {
     return res.json({
       code: 1013,
@@ -280,31 +282,31 @@ logger.debug('req.body: ', req.body);
       message: 'DSR到店日期不存在',
     });
   }
-  if(sroceServe.score === 0) {
+  if(sroceServe === 0) {
     return res.json({
       code: 1016,
       message: '服务质量分数不能为空',
     });
   }
-  if(sroceSkill.score === 0) {
+  if(sroceSkill === 0) {
     return res.json({
       code: 1017,
       message: '专业技能分数不能为空',
     });
   }
-  if(sroceSupplement.score === 0) {
+  if(sroceSupplement === 0) {
     return res.json({
       code: 1018,
       message: '补货质量分数不能为空',
     });
   }
-  if(sroceHelp.score === 0) {
+  if(sroceHelp === 0) {
     return res.json({
       code: 1019,
       message: '助销服务分数不能为空',
     });
   }
-  if(overallEvaluation.score === 0) {
+  if(scoreOverallEvaluation === 0) {
     return res.json({
       code: 1021,
       message: '总体评价分数不能为空',
@@ -315,16 +317,16 @@ logger.debug('req.body: ', req.body);
   const postData = {
     dsrId: dsrId,
     shopkeeperId: shopkeeperId,
-    overallScore: overallEvaluation.score,
-    standbyScore: sroceHelp.score,
-    serviceScore: sroceServe.score,
-    majorScore: sroceSkill.score,
-    replenishmentScore: sroceSupplement.score,
-    overallComment: overallEvaluation.text,
-    standbyComment: sroceHelp.text,
-    majorComment: sroceSkill.text,
-    replenishmentComment: sroceSupplement.text,
-    serviceComment: sroceServe.text,
+    overallScore: scoreOverallEvaluation,
+    standbyScore: sroceHelp,
+    serviceScore: sroceServe,
+    majorScore: sroceSkill,
+    replenishmentScore: sroceSupplement,
+    overallComment: textOverallEvaluation,
+    standbyComment: textHelp,
+    majorComment: textSkill,
+    replenishmentComment: textSupplement,
+    serviceComment: textServe,
     arriveTime: dsrArriveTime,
   };
   post(path, postData)
