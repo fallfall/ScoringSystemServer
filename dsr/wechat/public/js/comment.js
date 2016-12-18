@@ -276,13 +276,13 @@ $(document).ready(function() {
         sroceServe: sroceServe.score,
         textServe: sroceServe.items.join('||||'),
         sroceSkill: sroceSkill.score,
-        textSkill: sroceSkill..items.join('||||'),
+        textSkill: sroceSkill.items.join('||||'),
         sroceSupplement: sroceSupplement.score,
-        textSupplement: sroceSupplement..items.join('||||'),
+        textSupplement: sroceSupplement.items.join('||||'),
         sroceHelp: sroceHelp.score,
-        textHelp: sroceHelp..items.join('||||'),
+        textHelp: sroceHelp.items.join('||||'),
         scoreOverallEvaluation: overallEvaluation.score,
-        textOverallEvaluation: overallEvaluation..items.join('||||'),
+        textOverallEvaluation: overallEvaluation.items.join('||||'),
       };
       // const shopkeeperId = req.body.userData.shopkeeperId;
       // const dsrId = req.body.userData.dsrId;
