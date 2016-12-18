@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  var dsrList; // dsr列表
+  // var dsrList; // dsr列表
 
   function initStorage() {
     if (!store.enabled) {
@@ -27,7 +27,7 @@ $(document).ready(function() {
       if (res.code === 0) {
         //  = res.data;
         // 获取店主信息成功
-        $('#name').text(res.data.name);
+        $('#name').text(res.data.shop_name);
         $('#score').text(res.data.integration);
         $('#shopKeepperId').text(res.data.id);
       } else {
@@ -48,7 +48,7 @@ $(document).ready(function() {
       console.log('初始化 Dsr 信息 res: ', res);
       if (res.code === 0) {
         var data = res.data;
-        dsrList = data;
+        // dsrList = data;
         var items = data.map(function(item) {
           return {
             title: item.Dsr_name,
