@@ -181,10 +181,14 @@
       console.log('data: ', data);
       ajax(url, 'POST', data, function(err, res) {
         if (err) {
-          return $.alert('绑定失败，请刷新页面重试！');
+          return $.alert('绑定失败，请重试', function() {
+            WeixinJSBridge.call('closeWindow');
+          });
         }
         console.log('res: ', res);
+        $.hideLoading();
         if (res.code === 0) {
+          return false;
           // $.alert('绑定成功');
           // $.toptip('绑定成功!', 'success');
           // 将 openId 和 id 存入 cookie
@@ -194,10 +198,14 @@
           console.log('id: ', id);
           // 跳转到评论页
           window.location.href = '/comment?openId=' + openId + '&id=' + id;
-          $.hideLoading();
+        } else if (res.code === 1002) {
+          return $.alert('您的手机号码尚未被录入系统，无法识别您的店主身份。请在服务号留言：BD+手机号码。我们的工作人员会与您取得联系。', '无法识别您的店主身份', function() {
+            WeixinJSBridge.call('closeWindow');
+          });
         } else {
-          $.hideLoading();
-          return $.alert(res.message);
+          return $.alert(res.message, '提示', function() {
+            WeixinJSBridge.call('closeWindow');
+          });
         }
       });
     }

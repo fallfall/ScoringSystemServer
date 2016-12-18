@@ -42,7 +42,7 @@ router.post('/sendMsg', (req, res) => {
         });
       } else if (parseInt(data.code) === 2004) {
         return res.json({
-          code: 1002,
+          code: 1003,
           message: '发送短信验证码失败，请稍后重试',
         });
       } else {
