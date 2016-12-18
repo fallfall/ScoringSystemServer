@@ -126,3 +126,7 @@ body, html {
 .weui_dialog {
   left: 7.5%;
 }
+
+.weui_cells_checkbox {
+  margin: auto -15px;
+}
