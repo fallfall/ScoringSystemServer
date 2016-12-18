@@ -199,7 +199,7 @@
         console.log('res: ', res);
         $.hideLoading();
         if (res.code === 0) {
-          return false;
+          // return false;
           // $.alert('绑定成功');
           // $.toptip('绑定成功!', 'success');
           // 将 openId 和 id 存入 cookie
