@@ -15,7 +15,7 @@ const comment = client.getAuthorizeURL(`${config.url}/init`, 'news', 'snsapi_bas
 const menu = {
   button: [
     {
-      name: '评论',
+      name: '点击评价',
       type: 'view',
       url: comment,
     },

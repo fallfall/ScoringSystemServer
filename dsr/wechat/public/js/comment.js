@@ -259,8 +259,8 @@ $(document).ready(function() {
 
     // 其他想说的
     $('#overall_btn').click(function() {
-      WeixinJSBridge.call('closeWindow');
-      return false;
+      // WeixinJSBridge.call('closeWindow');
+      // return false;
       var overallEvaluation = getOverallEvaluation();
       if (overallEvaluation.score === 0) {
         $.toptip('请对整体评价进行打分');
@@ -297,7 +297,6 @@ $(document).ready(function() {
         console.log('res: ', res);
         if (res.code === 0) {
           $.alert('评价成功', function() {
-            // window.location.href = '/success';
             WeixinJSBridge.call('closeWindow');
           });
         } else {
