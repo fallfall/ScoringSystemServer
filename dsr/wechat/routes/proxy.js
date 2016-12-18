@@ -207,13 +207,14 @@ router.get('/queryAllDsr', (req, res) => {
   ajax(path)
   .then((body) => {
     try {
-      console.log('data: ', data);
+      console.log('body: ', body);
       const data = JSON.stringify(body);
-      if (data.length !== 0) {
+      console.log('data: ', data);
+      if (data.code === 1) {
         return res.json({
           code: 0,
           message: '获取DSR列表成功',
-          data: data,
+          data: data.data,
         });
       } else {
         return res.json({
