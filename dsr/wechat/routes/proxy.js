@@ -212,7 +212,7 @@ router.get('/queryAllDsr', (req, res) => {
       console.log('data: ', data);
       const dsrList = JSON.parse(data.data);
       logger.debug('dsrList: ', dsrList);
-      if (data.code === 1) {
+      if (parseInt(data.code) === 1) {
         return res.json({
           code: 0,
           message: '获取DSR列表成功',
