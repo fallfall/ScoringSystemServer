@@ -160,7 +160,7 @@ router.post('/getShopkeeper', (req, res) => {
   .then((body) => {
     try {
       logger.debug('body: ', body);
-      const data = JSON.stringify(body);
+      const data = JSON.parse(body);
       logger.debug('data: ', data);
       if (parseInt(data.id) !== -1 && parseInt(data.id) > 0) {
         return res.json({
