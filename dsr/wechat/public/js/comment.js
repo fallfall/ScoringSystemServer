@@ -294,7 +294,9 @@ $(document).ready(function() {
       $.post(url, data, function(res){
         console.log('res: ', res);
         if (res.code === 0) {
-          $.alet('评价成功');
+          $.alert('评价成功', function() {
+            // window.location.href = '/success';
+          });
         } else {
           $.alert(res.message, '评价失败');
         }

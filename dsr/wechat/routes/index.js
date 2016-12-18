@@ -110,5 +110,13 @@ router.get('/comment', (req, res) => {
 });
 
 
+router.get('/success', function(req, res) {
+  res.render('success', {
+    title: '评论',
+    openId: openId,
+  });
+});
+
+
 
 module.exports = router;
