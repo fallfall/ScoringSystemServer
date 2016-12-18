@@ -277,7 +277,12 @@ path: /proxy/addComment
 }
 
 {
-  code: 1021,
+  code: 1022,
+  message: '评论成功，红包发送失败'
+}
+
+{
+  code: 1023,
   message: '评论失败'
 }
 ```
