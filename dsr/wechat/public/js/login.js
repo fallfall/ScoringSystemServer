@@ -186,7 +186,7 @@
           });
         }
         console.log('res: ', res);
-        $.hideLoading();
+        // $.hideLoading();
         if (res.code === 0) {
           return false;
           // $.alert('绑定成功');
