@@ -205,9 +205,7 @@
         } else if (res.code === 1007) {
           return $.alert(res.message, '绑定失败');
         } else {
-          return $.alert(res.message, '提示', function() {
-            WeixinJSBridge.call('closeWindow');
-          });
+          return $.alert(res.message, '提示');
         }
       });
     }
