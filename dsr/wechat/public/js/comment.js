@@ -13,7 +13,7 @@ $(document).ready(function() {
    */
   function initUser() {
     var id = $('#shopKeepperId').val();
-    console.log('初始化店主信息');
+    console.log('初始化店主信息, id: ', id);
     if (!id) {
       return $.alert('店主信息不存在，请退出该页面并重新进入');
     }
@@ -24,11 +24,11 @@ $(document).ready(function() {
     $.post(url, data, function(res) {
       console.log('初始化店主信息: ', res);
       if (res.code === 0) {
-        var data = res.data;
+        //  = res.data;
         // 获取店主信息成功
-        $('#name').text(data.name);
-        $('#score').text(data.integration);
-        $('#shopKeepperId').text(data.id);
+        $('#name').text(res.data.name);
+        $('#score').text(res.data.integration);
+        $('#shopKeepperId').text(res.data.id);
       } else {
         return $.alert('获取店主信息出错，请退出该页面并重新进入：' + res.message);
       }
