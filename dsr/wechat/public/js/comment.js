@@ -145,6 +145,7 @@ $(document).ready(function() {
     var dsrname = $('#dsrname').val();
     var date = $('#date').val();
     var shopKeepperId = $('#shopKeepperId').val();
+    var dsrId = $('#dsrname').val();
     if (parseInt(shopKeepperId, 10) === -1) {
       return false;
     } else {
