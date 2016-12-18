@@ -22,9 +22,9 @@ const post = (path, data) => {
       };
       console.log('options: ', options);
       const req = http.request(options, (response) => {
-        console.log('STATUS: ' + res.statusCode);
-        console.log('HEADERS: ' + JSON.stringify(res.headers));
-        res.setEncoding('utf8');
+        console.log('STATUS: ' + response.statusCode);
+        console.log('HEADERS: ' + JSON.stringify(response.headers));
+        response.setEncoding('utf8');
         let body = '';
         response.on('data', (chunk) => {
           body += chunk;
