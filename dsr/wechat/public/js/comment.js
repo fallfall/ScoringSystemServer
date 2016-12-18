@@ -291,8 +291,9 @@ $(document).ready(function() {
             WeixinJSBridge.call('closeWindow');
           });
         } else if (res.code === 1022) {
-          $.alert(res.message, '提示');
-          WeixinJSBridge.call('closeWindow');
+          $.alert(res.message, '提示', function() {
+            WeixinJSBridge.call('closeWindow');
+          });
         } else {
           $.alert(res.message, '评论失败');
         }
