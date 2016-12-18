@@ -20,6 +20,7 @@ const post = (path, data) => {
           'Content-Length': postData.length
         }
       };
+      console.log('options: ', options);
       const req = http.request(options, (response) => {
         let body = '';
         response.on('data', (chunk) => {
