@@ -27,7 +27,7 @@ $(document).ready(function() {
         var data = res.data;
         // 获取店主信息成功
         $('#name').text(data.name);
-        $('#score').text(data.score);
+        $('#score').text(data.integration);
         $('#shopKeepperId').text(data.id);
       } else {
         return $.alert('获取店主信息出错，请退出该页面并重新进入：' + res.message);

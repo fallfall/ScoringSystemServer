@@ -143,7 +143,7 @@ router.post('/verifyTel', (req, res) => {
 
 /**
  * 获取店主信息
- *http://139.199.77.40:8080/ScoringSystemServer/ShopKeeper.do?method=getShopkeeper&id=7
+ *http://139.199.77.40:8080/ScoringSystemServer/ShopKeeper.do?shopkeeperId=7
  */
 router.post('/getShopkeeper', (req, res) => {
   logger.debug('获取店主信息');
@@ -162,7 +162,7 @@ router.post('/getShopkeeper', (req, res) => {
       logger.debug('body: ', body);
       const data = JSON.stringify(body);
       logger.debug('data: ', data);
-      if (parseInt(data.id) !== -1) {
+      if (parseInt(data.id) !== -1 && parseInt(data.id) > 0) {
         return res.json({
           code: 0,
           message: '查询店主信息成功',
@@ -327,7 +327,7 @@ router.post('/addComment', (req, res) => {
   .then((body) => {
     try {
       const data = JSON.stringify(body);
-      if (data.code === 300) {
+      if (data.code === 4000) {
         return res.json({
           code: 0,
           message: '评论成功',
