@@ -274,15 +274,15 @@ $(document).ready(function() {
         dsrId: userData.dsrId,
         dsrArriveTime: userData.date,
         sroceServe: sroceServe.score,
-        textServe: sroceServe.items.join('||||');
+        textServe: sroceServe.items.join('||||'),
         sroceSkill: sroceSkill.score,
-        textSkill: sroceSkill.text,
+        textSkill: sroceSkill..items.join('||||'),
         sroceSupplement: sroceSupplement.score,
-        textSupplement: sroceSupplement.text,
+        textSupplement: sroceSupplement..items.join('||||'),
         sroceHelp: sroceHelp.score,
-        textHelp: sroceHelp.text,
+        textHelp: sroceHelp..items.join('||||'),
         scoreOverallEvaluation: overallEvaluation.score,
-        textOverallEvaluation: overallEvaluation.text,
+        textOverallEvaluation: overallEvaluation..items.join('||||'),
       };
       // const shopkeeperId = req.body.userData.shopkeeperId;
       // const dsrId = req.body.userData.dsrId;
