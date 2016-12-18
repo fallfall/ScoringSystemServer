@@ -251,18 +251,18 @@ router.get('/queryAllDsr', (req, res) => {
  */
 router.post('/addComment', (req, res) => {
 logger.debug('req.body: ', req.body);
-  const shopkeeperId = req.body.shopkeeperId;
-  const dsrId = req.body.dsrId;
+  const shopkeeperId = parseInt(req.body.shopkeeperId, 10);
+  const dsrId = parseInt(req.body.dsrId, 10);
   const dsrArriveTime = req.body.dsrArriveTime;
-  const sroceServe = req.body.sroceServe;
+  const sroceServe = parseInt(req.body.sroceServe, 10);
   const textServe = req.body.textServe;
-  const sroceSkill = req.body.sroceSkill;
+  const sroceSkill = parseInt(req.body.sroceSkill, 10);
   const textSkill = req.body.textSkill;
-  const sroceSupplement = req.body.sroceSupplement;
+  const sroceSupplement = parseInt(req.body.sroceSupplement, 10);
   const textSupplement = req.body.textSupplement;
-  const sroceHelp = req.body.sroceHelp;
+  const sroceHelp = parseInt(req.body.sroceHelp, 10);
   const textHelp = req.body.textHelp;
-  const scoreOverallEvaluation = req.body.scoreOverallEvaluation;
+  const scoreOverallEvaluation = parseInt(req.body.scoreOverallEvaluation, 10);
   const textOverallEvaluation = req.body.textOverallEvaluation;
   if(!shopkeeperId) {
     return res.json({
@@ -329,11 +329,12 @@ logger.debug('req.body: ', req.body);
     serviceComment: textServe,
     arriveTime: dsrArriveTime,
   };
+  logger.debug('postData: ', postData);
   post(path, postData)
   .then((body) => {
     try {
-      const data = JSON.stringify(body);
-      if (data.code === 4000) {
+      const data = JSON.parse(body);
+      if (parseInt(data.code, 10) === 4000) {
         return res.json({
           code: 0,
           message: '评论成功',

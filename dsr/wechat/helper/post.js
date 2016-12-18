@@ -10,7 +10,7 @@ const post = (path, data) => {
   const postData = querystring.stringify(data);
   return new Promise((resolve, reject) => {
     d.run(() => {
-      http.request({
+      const req = http.request({
         host: config.serverHost,
         path,
         port: config.serverPort,
@@ -28,6 +28,8 @@ const post = (path, data) => {
           resolve(body);
         });
       });
+      req.write(postData);
+      req.end();
     });
     d.on('error', () => {
       const killTimer = setTimeout(() => {
