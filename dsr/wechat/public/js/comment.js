@@ -299,8 +299,11 @@ $(document).ready(function() {
           $.alert('评价成功', function() {
             WeixinJSBridge.call('closeWindow');
           });
+        } else if (res.code === 1022) {
+          $.alert(res.message, '提示');
+          WeixinJSBridge.call('closeWindow');
         } else {
-          $.alert(res.message, '评价失败');
+          $.alert(res.message, '评论失败');
         }
       });
     });
