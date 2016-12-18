@@ -259,6 +259,7 @@ $(document).ready(function() {
 
     // 其他想说的
     $('#overall_btn').click(function() {
+      $.showLoading('绑定中...');
       // WeixinJSBridge.call('closeWindow');
       // return false;
       var overallEvaluation = getOverallEvaluation();
@@ -294,6 +295,7 @@ $(document).ready(function() {
       var url = '/proxy/addComment';
       console.log('data: ', data);
       $.post(url, data, function(res){
+        $.hideLoading();
         console.log('res: ', res);
         if (res.code === 0) {
           $.alert('评价成功', function() {
