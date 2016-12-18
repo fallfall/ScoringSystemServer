@@ -103,9 +103,11 @@ router.get('/login', (req, res) => {
 // 评论 (TODO delete）
 router.get('/comment', (req, res) => {
   const openId = req.query.openId;
+  const shopkeeperId = req.query.id;
   res.render('comment', {
     title: '评论',
     openId: openId,
+    shopkeeperId: shopkeeperId,
   });
 });
 

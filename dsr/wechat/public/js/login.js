@@ -1,6 +1,6 @@
 (function() {
   /**
-   * 登录页面
+   * 绑定页面
     */
 
   // 初始化 localStorage
@@ -115,7 +115,7 @@
 
   /**
    * 获取输入框的数据
-   *  用于登录
+   *  用于绑定
    * @return {object} {phone, code}
    */
   function getValue() {
@@ -174,28 +174,28 @@
     sendCode(phone);
   });
 
-  // 登录按钮
+  // 绑定按钮
   $btnLogin = document.getElementById('btnLogin');
-  // 监听登录按钮的点击事件
+  // 监听绑定按钮的点击事件
   $btnLogin.addEventListener('click', function(event) {
     if (event.defaultPrevented) {
       // 阻止元素的默认行为
       event.defaultPrevented();
     } else {
-      $.showLoading('登录中...');
+      $.showLoading('绑定中...');
       window.event.returnValue = false;
-      console.log('登录...');
+      console.log('绑定...');
       var url = '/proxy/verifyTel';
       var data = getValue();
       console.log('data: ', data);
       ajax(url, 'POST', data, function(err, res) {
         if (err) {
-          return $.alert('登录失败，请刷新页面重试！');
+          return $.alert('绑定失败，请刷新页面重试！');
         }
         console.log('res: ', res);
         if (res.code === 0) {
-          // $.alert('登录成功');
-          $.toptip('登录成功!', 'success');
+          // $.alert('绑定成功');
+          // $.toptip('绑定成功!', 'success');
           // 将 openId 和 id 存入 cookie
           var openId = document.getElementById('openId').value;
           var id = res.id;
@@ -204,7 +204,7 @@
           console.log('openId: ', store.get('openId'));
           console.log('id: ', store.get('id'));
           // 跳转到评论页
-          // window.location.href = '/comment?openId=' + openId;
+          window.location.href = '/comment?openId=' + openId '&id=id';
           $.hideLoading();
         } else {
           $.hideLoading();
