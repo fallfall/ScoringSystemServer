@@ -1,13 +1,16 @@
 const http = require('http');
 const domain = require('domain');
+const querystring = require('querystring');
 const config = require('./../config/config');
 const d = domain.create();
 
 
 const post = (path, data) => {
+  console.log('-------------ajax post------');
   console.log('path: ', path);
   console.log('data: ', data);
   const postData = querystring.stringify(data);
+  console.log('postData: ', postData);
   return new Promise((resolve, reject) => {
     d.run(() => {
       const options = {
