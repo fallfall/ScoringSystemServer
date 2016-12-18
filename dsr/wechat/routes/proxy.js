@@ -115,6 +115,11 @@ router.post('/verifyTel', (req, res) => {
           code: 1007,
           message: '验证码错误',
         });
+      } else if (data.code === 3002) {
+        return res.json({
+          code: 1024,
+          message: '验证码已失效，请新获取验证码',
+        });
       } else {
         return res.json({
           code: 1008,
