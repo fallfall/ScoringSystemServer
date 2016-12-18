@@ -97,8 +97,12 @@
         // $.alert('发送验证码成，请注意查收短信！')
         $.alert('发送验证码成，请注意查收短信！');
         return true;
+      }  else if (res.code === 1002) {
+        return $.alert('您的手机号码尚未被录入系统，无法识别您的店主身份。请在服务号留言：BD+手机号码。我们的工作人员会与您取得联系。', '无法识别您的店主身份', function() {
+          WeixinJSBridge.call('closeWindow');
+        });
       } else {
-        $.alert(res.message);
+        $.alert(res.message, '提示');
         return false;
       }
     });
@@ -186,7 +190,7 @@
           });
         }
         console.log('res: ', res);
-        // $.hideLoading();
+        $.hideLoading();
         if (res.code === 0) {
           return false;
           // $.alert('绑定成功');
@@ -198,10 +202,8 @@
           console.log('id: ', id);
           // 跳转到评论页
           window.location.href = '/comment?openId=' + openId + '&id=' + id;
-        } else if (res.code === 1002) {
-          return $.alert('您的手机号码尚未被录入系统，无法识别您的店主身份。请在服务号留言：BD+手机号码。我们的工作人员会与您取得联系。', '无法识别您的店主身份', function() {
-            WeixinJSBridge.call('closeWindow');
-          });
+        } else if (res.code === 1007) {
+          return $.alert(res.message, '绑定失败');
         } else {
           return $.alert(res.message, '提示', function() {
             WeixinJSBridge.call('closeWindow');
