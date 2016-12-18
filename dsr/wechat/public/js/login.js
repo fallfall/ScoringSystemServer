@@ -184,6 +184,7 @@
       var data = getValue();
       console.log('data: ', data);
       if (!data) {
+        $.hideLoading();
         return false;
       }
       ajax(url, 'POST', data, function(err, res) {
