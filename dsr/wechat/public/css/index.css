@@ -24,6 +24,10 @@ body, html {
 .login_container {
     margin-top: 20%;
 }
+.login_btn {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
 .login_button {
     margin-top: 50px;
     margin-bottom: 50px;
