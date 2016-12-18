@@ -250,6 +250,7 @@ router.get('/queryAllDsr', (req, res) => {
  * http://139.199.77.40:8080/ScoringSystemServer/DsrScore.do?method=addComment&dsr_id=1&shopkeeper_id=5&ArriveTime=1994-9-14&major_score=1&replenishment_score=1&service_score=1&standby_score=1&Overall_score=1&comment=1
  */
 router.post('/addComment', (req, res) => {
+logger.debug('req.body: ', req.body);
   const shopkeeperId = req.body.userData.shopkeeperId;
   const dsrId = req.body.userData.dsrId;
   const dsrArriveTime = req.body.userData.dsrArriveTime;
