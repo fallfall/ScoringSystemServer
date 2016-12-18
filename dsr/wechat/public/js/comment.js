@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  var dsrList; // dsr列表
 
   function initStorage() {
     if (!store.enabled) {
@@ -47,18 +48,17 @@ $(document).ready(function() {
       console.log('初始化 Dsr 信息 res: ', res);
       if (res.code === 0) {
         var data = res.data;
+        dsrList = data;
         var values = data.map(function(item) {
-          return item.Dsr_name;
+          return {
+            title: item.Dsr_name,
+            value: item.id,
+          };
         });
         // dsr 姓名初始化
-        $('#dsrname').picker({
+        $('#dsrname').select({
           title: "请选择DSR姓名",
-          cols: [
-            {
-              textAlign: 'center',
-              values: values,
-            }
-          ]
+          items: items
         });
       } else {
         return $.alert('初始化DSR信息失败，请退出页面重试');
@@ -145,7 +145,9 @@ $(document).ready(function() {
     var dsrname = $('#dsrname').val();
     var date = $('#date').val();
     var shopKeepperId = $('#shopKeepperId').val();
-    var dsrId = $('#dsrname').val();
+    var dsrName = $('#dsrname').val();
+    var drsId = $('#dsrname').attr('data-values');
+    console.log('drsId: ', drsId);
     if (parseInt(shopKeepperId, 10) === -1) {
       return false;
     } else {
@@ -261,14 +263,6 @@ $(document).ready(function() {
       if (overallEvaluation.score === 0) {
         $.toptip('请对整体评价进行打分');
       }
-      // var data = {
-      //   userData: userData,
-      //   sroceServe: sroceServe,
-      //   sroceSkill: sroceSkill,
-      //   sroceSupplement: sroceSupplement,
-      //   sroceHelp: sroceHelp,
-      //   overallEvaluation: overallEvaluation,
-      // };
       var data = {
         shopkeeperId: userData.shopKeepperId,
         dsrId: userData.dsrId,
