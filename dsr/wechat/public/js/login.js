@@ -185,9 +185,7 @@
       console.log('data: ', data);
       ajax(url, 'POST', data, function(err, res) {
         if (err) {
-          return $.alert('绑定失败，请重试', function() {
-            WeixinJSBridge.call('closeWindow');
-          });
+          return $.alert('绑定失败，请重试');
         }
         console.log('res: ', res);
         $.hideLoading();
