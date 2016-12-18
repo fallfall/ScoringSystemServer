@@ -49,7 +49,7 @@ $(document).ready(function() {
       if (res.code === 0) {
         var data = res.data;
         dsrList = data;
-        var values = data.map(function(item) {
+        var items = data.map(function(item) {
           return {
             title: item.Dsr_name,
             value: item.id,
