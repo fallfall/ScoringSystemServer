@@ -62,7 +62,7 @@ router.get('/init', function(req, res, next) {
               logger.debug('数据库中 openId 不存在');
               logger.debug('openId: ', openId);
               return res.render('login', {
-                title: '“验证绑定手机号',
+                title: '验证绑定手机号',
                 openId,
               });
             } else {
