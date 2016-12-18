@@ -119,16 +119,16 @@
     var openId = document.getElementById('openId').value;
     var regPhone = /^1(3[0-9]|4[57]|5[0-35-9]|7[01678]|8[0-9])\d{8}$/;
     if (!regPhone.test(phone)) {
-      $.alert('手机号格式错误，请重新输入！');
+      $.alert('手机号格式错误，请重新输入');
       return false;
     }
     if (!code) {
-      $.alert('请输入验证码！');
+      $.alert('请输入验证码');
+      return false;
     }
     return {tel: phone, code: code, openId: openId};
   }
 
-  // TODO 将倒计时存入 cookie
   /**
    * 验证码倒计时
    * @type {Number}
@@ -185,6 +185,7 @@
       console.log('data: ', data);
       ajax(url, 'POST', data, function(err, res) {
         if (err) {
+          $.hideLoading();
           return $.alert('绑定失败，请重试');
         }
         console.log('res: ', res);
