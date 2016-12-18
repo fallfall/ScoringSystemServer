@@ -282,7 +282,7 @@ $(document).ready(function() {
         sroceHelp: sroceHelp.score,
         textHelp: sroceHelp.items.join('||||'),
         scoreOverallEvaluation: overallEvaluation.score,
-        textOverallEvaluation: overallEvaluation.items.join('||||'),
+        textOverallEvaluation: overallEvaluation.text,
       };
       // const shopkeeperId = req.body.userData.shopkeeperId;
       // const dsrId = req.body.userData.dsrId;
