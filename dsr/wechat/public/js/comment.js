@@ -259,7 +259,7 @@ $(document).ready(function() {
 
     // 其他想说的
     $('#overall_btn').click(function() {
-      $.showLoading('绑定中...');
+      $.showLoading('评论中...');
       // WeixinJSBridge.call('closeWindow');
       // return false;
       var overallEvaluation = getOverallEvaluation();
@@ -281,17 +281,6 @@ $(document).ready(function() {
         scoreOverallEvaluation: overallEvaluation.score,
         textOverallEvaluation: overallEvaluation.text,
       };
-      // const shopkeeperId = req.body.userData.shopkeeperId;
-      // const dsrId = req.body.userData.dsrId;
-      // const dsrArriveTime = req.body.userData.dsrArriveTime;
-      // const sroceServe = req.body.sroceServe;
-      // const textServe = req.body.textServe;
-      // const sroceSkill = req.body.sroceSkill;
-      // const textSkill = req.body.textSkill;
-      // const sroceSupplement = req.body.sroceSupplement;
-      // const textSupplement = req.body.textSupplement;
-      // const sroceHelp = req.body.sroceHelp;
-      // const textHelp = req.body.textHelp;
       var url = '/proxy/addComment';
       console.log('data: ', data);
       $.post(url, data, function(res){
