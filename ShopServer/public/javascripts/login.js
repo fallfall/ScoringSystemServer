@@ -3,40 +3,42 @@
 
   /**
    * 获取表单数据
-   * @return {Object} { username: '用户名', password: '密码' }
+   * @return {Object} { tel: '手机号', code: '验证码' }
    */
   function getFormData() {
-    var username = $('#username').val();
-    var password = $('#password').val();
-    if (!username) {
-      swal('用户名不能为空', '', 'error');
+    var tel = $('#tel').val();
+    var code = $('#code').val();
+    if (!tel) {
+      swal('手机号不能为空', '', 'error');
       return false;
     }
-    if (!password) {
-      swal('密码不能为空', '', 'error');
+    if (!code) {
+      swal('验证码不能为空', '', 'error');
       return false;
     }
     var data = {
-      username: username,
-      password: password
+      tel: tel,
+      code: code
     };
     return data;
   }
 
 
   /**
-   * 注册事件
+   * 登录事件
    */
-  $('#register').click(function() {
+  $('#login').click(function() {
     var data = getFormData();
     if (!data) {
       return false;
     }
-    var url = '/api/v0.1/register';
+    var url = '/api/v0.1/login';
     $.post(url, data, function(res) {
+      console.log('res: ', res);
       if (res.code === 0) {
+        var token = res.token;
         swal({
-          title: '注册成功',
+          title: '登录成功',
           type: 'info',
           confirmButtonText: '确定',
         }, function() {

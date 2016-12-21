@@ -2,13 +2,19 @@ const express = require('express');
 
 const router = express.Router();
 
+
 /**
  * 首页
- *    跳转到登录页
+ *    跳转到 index
  * @type {String}
  */
 router.get('/', (req, res) => {
   res.redirect('/login');
+});
+router.get('/index', (req, res) => {
+  res.render('index', {
+    title: '首页',
+  });
 });
 
 
@@ -22,15 +28,5 @@ router.get('/login', (req, res) => {
   });
 });
 
-
-/**
- * 注册页
- * @type {String}
- */
-router.get('/register', (req, res) => {
-  res.render('register', {
-    title: '注册',
-  });
-});
 
 module.exports = router;
