@@ -1,65 +1,59 @@
+function createCookie(name, value, days) {
+  if (days) {
+    var date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    var expires = "; expires=" + date.toUTCString();
+  } else
+    var expires = "";
+  document.cookie = name + "=" + value + expires + "; path=/";
+}
+function readCookie(name) {
+  var nameEQ = name + "=";
+  var ca = document.cookie.split(';');
+  for (var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ')
+      c = c.substring(1, c.length);
+    if (c.indexOf(nameEQ) == 0)
+      return c.substring(nameEQ.length, c.length);
+    }
+  return null;
+}
+
+
+function eraseCookie(name) {
+  createCookie(name, "", -1);
+}
+
+
 /**
- * 获取cookie
- * @param  {string} c_name cookie名称
- * @return {string}        cookie
+ * 获取URL参数
  */
-function getCookie(c_name) {
-  console.log('c_name: ', c_name + '=');
-  // console.log('document.cookie.length: ', document.cookie.length);
-  // console.log('document.cookie: ', document.cookie, document.cookie.indexOf('token='));
-  if (document.cookie.length > 0) {
-    var c_start = document.cookie.lastIndexOf(c_name + '=');
-    console.log('c_start: ', c_start);
-    if (c_start != -1) {
-      c_start = c_start + c_name.length + 1
-      var c_end = document.cookie.indexOf(";", c_start)
-      if (c_end == -1)
-        c_end = document.cookie.length
-      return unescape(document.cookie.substring(c_start, c_end))
+var QueryString = function() {
+  // This function is anonymous, is executed immediately and
+  // the return value is assigned to QueryString!
+  var query_string = {};
+  var query = window.location.search.substring(1);
+  var vars = query.split("&");
+  for (var i = 0; i < vars.length; i++) {
+    var pair = vars[i].split("=");
+    // If first entry with this name
+    if (typeof query_string[pair[0]] === "undefined") {
+      query_string[pair[0]] = decodeURIComponent(pair[1]);
+      // If second entry with this name
+    } else if (typeof query_string[pair[0]] === "string") {
+      var arr = [
+        query_string[pair[0]],
+        decodeURIComponent(pair[1])
+      ];
+      query_string[pair[0]] = arr;
+      // If third or later entry with this name
+    } else {
+      query_string[pair[0]].push(decodeURIComponent(pair[1]));
     }
   }
-  return ""
-}
-
-
-/**
- * 设置cookie
- * @param {string} c_name     cookie名称
- * @param {string} value      cookie的值
- * @param {string} expiredays 过期天数
- */
-function setCookie(c_name, value, expiredays) {
-  var exdate = new Date()
-  exdate.setDate(exdate.getDate() + expiredays)
-  document.cookie = c_name + "=" + escape(value) + ((expiredays == null) ? "" : ";expires=" + exdate.toGMTString())
-}
-
-
-/**
- * 检测某个cookie是否存在
- * @param  {string} c_name cookie名称
- * @return {boolean}        是否存在cookie
- */
-function checkCookie(c_name) {
-  console.log('c_name: ', c_name);
-  var name = getCookie(c_name);
-  console.log('name: ', getCookie('token'));
-  if (name != null && name != '') {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-
-/**
- * 删除cookie
- * @param  {string} name cookie的名称
- * @return {null}      null
- */
-function deleteCookie(name) {
-  document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-}
+  return query_string;
+}();
 
 
 /**
@@ -69,6 +63,6 @@ function deleteCookie(name) {
  * @return {null} null
  */
  $('#logout').click(function() {
-   deleteCookie('token');
+   eraseCookie('token');
    window.location.href = '/login';
  });
