@@ -29,4 +29,27 @@ router.get('/login', (req, res) => {
 });
 
 
+/**
+ * 添加 DSR
+ * @type {String}
+ */
+router.get('/add_dsr', (req, res) => {
+  res.render('add_dsr', {
+    title: '添加DSR',
+  });
+});
+
+
+/**
+ * 添加店主
+ * @type {String}
+ */
+router.get('/add_shop', (req, res) => {
+  res.render('add_shop', {
+    title: '添加店主',
+  });
+});
+
+
+
 module.exports = router;

@@ -1,4 +1,5 @@
 const http = require('http');
+const querystring = require('querystring');
 const config = require('./../config/config');
 
 
@@ -51,23 +52,40 @@ const httpRequest = (req, res) => {
   const method = req.method;
   // const path = req.path.substring(config.apiIndex.length);
   const path = req.originalUrl.substring(config.apiIndex.length);
-  const body = JSON.stringify(req.body);
+  const body = querystring.stringify(req.body);
   const options = {
     hostname: config.hostname,
     port: config.proxyPort,
     path,
     method,
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded',
       'Content-Length': body.length,
     },
   };
+  console.log('options: ', options);
   const proxyReq = http.request(options, (proxyRes) => {
     console.log('status: ', proxyRes.statusCode);
     console.log('headers: ', JSON.stringify(proxyRes.headers));
+    let proxyBody = '';
     proxyRes.setEncoding('utf8');
     proxyRes.on('data', (chunk) => {
       console.log('chunk: ', chunk);
+      proxyBody += chunk;
+    });
+    proxyRes.on('end', () => {
+      console.log('proxyBody: ', proxyBody);
+      try {
+        const parsed = JSON.parse(proxyBody);
+        res.json(parsed);
+      } catch (exception) {
+        console.log('httpRequest parsed: ', exception);
+        res.json({
+          code: 5000,
+          message: '服务器错误',
+          error: exception,
+        });
+      }
     });
   });
 
@@ -79,10 +97,11 @@ const httpRequest = (req, res) => {
       error,
     });
   });
-
+  console.log('body: ', body);
   proxyReq.write(body);
   proxyReq.end();
 };
+
 
 const proxy = (req, res, next) => {
   console.log('proxy');
