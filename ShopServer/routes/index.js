@@ -51,5 +51,24 @@ router.get('/add_shop', (req, res) => {
 });
 
 
+/**
+ * 店主列表
+ */
+router.get('/list_shop', (req, res) => {
+  res.render('list_shop', {
+    title: '店主列表',
+  });
+});
+
+
+/**
+ * DSR列表
+ */
+router.get('/dsr_shop', (req, res) => {
+  res.render('list_shop', {
+    title: '店主列表',
+  });
+});
+
 
 module.exports = router;
