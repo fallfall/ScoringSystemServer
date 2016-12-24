@@ -64,8 +64,8 @@ router.get('/list_shop', (req, res) => {
 /**
  * DSR列表
  */
-router.get('/dsr_shop', (req, res) => {
-  res.render('list_shop', {
+router.get('/list_dsr', (req, res) => {
+  res.render('list_dsr', {
     title: '店主列表',
   });
 });
