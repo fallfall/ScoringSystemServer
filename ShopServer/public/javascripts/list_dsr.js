@@ -21,6 +21,7 @@
             '<td>' + item.id +'</td>' +
             '<td>' + item.Dsr_name +'</td>' +
             '<td>' + item.Dsr_Ename +'</td>' +
+            '<td><a href="/edit_dsr?id=' + item.id +'">操作</a></td>' +
           '</tr>';
         });
         $('#list').html(dom);

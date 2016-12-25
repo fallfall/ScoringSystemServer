@@ -22,6 +22,7 @@
             '<td>' + item.weixing_id +'</td>' +
             '<td>' + item.shop_name +'</td>' +
             '<td>' + item.integration +'</td>' +
+            '<td><a href="/edit_shop?id=' + item.id +'">操作</a></td>' +
           '</tr>';
         });
         $('#list').html(dom);
