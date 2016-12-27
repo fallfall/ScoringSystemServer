@@ -17,6 +17,7 @@
       shopName: name,
       token: readCookie('token'),
     };
+    console.log('data: ', data);
     var url = '/api/v0.1/ScoringSystemServer/ManageShopKeeper.do';
     // url += '?' + $.param(data);
     $.post(url, data, function(res) {

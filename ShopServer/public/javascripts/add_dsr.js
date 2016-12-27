@@ -16,9 +16,10 @@
     };
     var url = '/api/v0.1/ScoringSystemServer/ManageDsr.do';
     // url += '?' + $.param(data);
+    console.log('data: ', data);
     $.post(url, data, function(res) {
       console.log('res: ', res);
-      if (res.code === 1200) {
+      if (res.code === 1400) {
         swal('添加DSR成功', '', 'success');
       } else if (res.code === 1201) {
         swal('DSR姓名不能为空', '', 'error');

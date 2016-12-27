@@ -71,7 +71,7 @@
         createCookie('token', token);
         swal({
           title: '登录成功',
-          type: 'info',
+          type: 'success',
           confirmButtonText: '确定',
         }, function() {
           window.location.href = '/index';

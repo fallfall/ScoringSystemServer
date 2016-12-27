@@ -22,7 +22,7 @@
             '<td>' + item.weixing_id +'</td>' +
             '<td>' + item.shop_name +'</td>' +
             '<td>' + item.integration +'</td>' +
-            '<td><a href="/edit_shop?id=' + item.id +'">操作</a></td>' +
+            '<td><a href="/delete_shop?id=' + item.id +'&token='+token+'">删除</a></td>' +
           '</tr>';
         });
         $('#list').html(dom);

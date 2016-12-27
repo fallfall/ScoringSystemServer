@@ -1,0 +1,40 @@
+<%- include ./common/head.ejs %>
+<%- include ./common/header.ejs %>
+
+<div id="wrapper">
+  <%- include ./common/navigation.ejs %>
+
+  <!-- Page Content -->
+  <div id="page-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+          <h1 class="page-header">修改DSR</h1>
+        </div>
+
+        <div class="col-xs-10 col-md-8 col-lg-6">
+          <form role="form">
+            <div class="form-group">
+              <label for="dsrName">DSR姓名</label>
+              <input type="text" class="form-control" id="dsrName" placeholder="<%= name %>" value="<%= name %>">
+            </div>
+            <div class="form-group">
+              <label for="dsrEname">DSR编号</label>
+              <input type="text" class="form-control" id="dsrEname" placeholder="<%= code %>" value="<%= code %>">
+            </div>
+            <button type="button" class="btn btn-primary btn-block" id="btn">保存修改</button>
+          </form>
+        </div>
+        <!-- /.col-lg-12 -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </div>
+  <!-- /#page-wrapper -->
+</div>
+<!-- /#wrapper -->
+
+<%- include ./common/script.ejs %>
+<script type="text/javascript" src="/javascripts/edit_dsr.js"></script>
+<%- include ./common/foot.ejs %>
